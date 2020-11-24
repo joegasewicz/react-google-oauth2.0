@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "target": "es5",
+    "strict": true,
+    "jsx": "react",
+    "allowJs": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "typeRoots": [
+      "node_modules/@types/",
+      "dist/src/index.d.ts"
+    ],
+    "esModuleInterop": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
