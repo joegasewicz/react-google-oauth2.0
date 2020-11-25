@@ -25,14 +25,13 @@ type TypeButtonStyles = { [key: string]: string };
 /** @internal */
 interface IGoogleAuthContext { queryParamsCode: boolean; }
 /** @internal */
-interface IServerResponseState { accessToken: string; }
+interface IServerResponseState { accessToken?: string; error?: string }
 /** @internal */
 interface IPayload { }
 /** @internal */
 interface IApiResponseData { accessToken: string; }
 /** @internal */
 interface IServerResponse {
-    callback?: () => any;
     email?: string;
     error?: string;
     code: string;
@@ -79,8 +78,8 @@ export const InnerButton = (props: IGoogleButton & { error?: string}) => {
     return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
 }
 /** @internal */
-async function postToExchangeApiUrl(apiUrl: string, code: string) {
-    const res = await fetch(apiUrl, {
+async function postToExchangeApiUrl(apiUrl: string, code: string): Promise<IApiResponseData> {
+    const res: Response = await fetch(apiUrl, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
@@ -89,22 +88,26 @@ async function postToExchangeApiUrl(apiUrl: string, code: string) {
     return res.json();
 }
 /** @internal */
-function serverResponse(props: IServerResponse) {
-    const { callback, email, error, code, apiUrl, scope } = props;
+function serverResponse(props: IServerResponse): void {
+    const { email, error, code, apiUrl, scope } = props;
     // TODO Make request with client_id & code to Flask API
     postToExchangeApiUrl(apiUrl, code)
         .then((data: IApiResponseData) => {
-
+            // update responseState
         })
         .catch(err => {
-            // TODO
+            // update responseState error
         });
 }
 /**
  * @example
  *
- *      <GoogleButton placeholder="demo/search.png" />
- *s
+ *   <GoogleButton
+ *         placeholder="demo/search.png"
+ *         options={options}
+ *         apiUrl="http://localhost:5000/google_login"
+ *   />
+ *
  * @param props see IGoogleButton
  * @constructor
  */
@@ -123,7 +126,6 @@ export const GoogleButton = (props: IGoogleButton) => {
         const queryParamsEmail = currentUrl.get("email") || "";
         const queryParamsScope = currentUrl.get("scope") || "";
         const serverResponseProps: IServerResponse = {
-            callback: callback,
             email: queryParamsEmail,
             scope: queryParamsScope,
             code: queryParamsCode,
