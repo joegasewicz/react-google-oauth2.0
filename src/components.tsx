@@ -17,6 +17,10 @@ export interface IGoogleButton extends React.ButtonHTMLAttributes<HTMLButtonElem
     options: IAuthorizationOptions;
     /** Could be your preloader or any other dumb component */
     callback?: () => React.ReactHTMLElement<any>;
+    /** The url of the api to perform the exchange */
+    apiUrl: string;
+    /**  */
+
 }
 
 /** @internal */
@@ -31,7 +35,8 @@ const buttonStyling: TypeButtonStyles = {
     border: "1px solid #bdc3c7",
     padding: "9px 23px",
     borderRadius: "9px",
-    backgroundColor: "##bdc3c7"
+    backgroundColor: "##bdc3c7",
+    fontSize: "18px",
 };
 
 
@@ -84,46 +89,71 @@ interface IServerResponse {
     code: string;
     scope: string;
     client_id: string;
+    apiUrl: string;
 }
 
 interface IServerResponseState {
+    accessToken: string;
+}
 
+interface IPayload {
+
+}
+
+interface IApiResponseData {
+    accessToken: string;
 }
 
 const SERVER_RESPONSE_STATE = {
 
 };
 
+async function postToExchangeApiUrl(apiUrl: string, code: string) {
+    const res = await fetch(apiUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({code,}),
+    });
+    return res.json();
+}
+
 /** @internal */
-function ServerResponse(props: IServerResponse) {
-    const { callback, email, error, code, scope } = props;
-    const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
-    return callback ? callback() : <>Loading...</>;
+function serverResponse(props: IServerResponse) {
+    const { callback, email, error, code, apiUrl, scope } = props;
+
     // TODO Make request with client_id & code to Flask API
+    postToExchangeApiUrl(apiUrl, code)
+        .then()
+        .catch();
 }
 
 export const GoogleButton = (props: IGoogleButton) => {
     const { callback } = props;
+    const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
     const currentUrl = new URLSearchParams(window.location.search);
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
-
-    if(queryParamsCode) {
+    if(responseState.accessToken) {
+        window.localStorage.setItem("accessToken", responseState.accessToken);
+        console.debug("`accessToken` set in local storage.")
+        return null;
+    } else if (queryParamsCode) {
         // Get rest of params
         const queryParamsEmail = currentUrl.get("email") || "";
         const queryParamsScope = currentUrl.get("scope") || "";
-        return <ServerResponse
-            callback={callback}
-            email={queryParamsEmail}
-            scope={queryParamsScope}
-            code={queryParamsCode}
-            client_id={props.options.clientId}
-        />;
-    }
-    else if(queryParamsError) {
+        const serverResponseProps: IServerResponse = {
+            callback: callback,
+            email: queryParamsEmail,
+            scope: queryParamsScope,
+            code: queryParamsCode,
+            client_id: props.options.clientId,
+            apiUrl: props.apiUrl,
+        };
+        serverResponse(serverResponseProps);
+        return callback ? callback() : <>Loading...</>;
+    } else if(queryParamsError) {
         return <InnerButton {...props} error={queryParamsError} />;
     }
-    return <InnerButton {...props} />;
-    }
-
-
+        return <InnerButton {...props} />;
+}
