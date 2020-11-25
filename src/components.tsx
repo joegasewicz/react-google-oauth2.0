@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import {
     Authorization,
@@ -78,12 +77,12 @@ export const InnerButton = (props: IGoogleButton & { error?: string}) => {
     return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
 }
 /** @internal */
-async function postToExchangeApiUrl(apiUrl: string, code: string): Promise<IApiResponseData> {
+async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<IApiResponseData> {
     const res: Response = await fetch(apiUrl, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({code,}),
+        body: JSON.stringify(payload),
     });
     return res.json();
 }
@@ -91,7 +90,8 @@ async function postToExchangeApiUrl(apiUrl: string, code: string): Promise<IApiR
 function serverResponse(props: IServerResponse): void {
     const { email, error, code, apiUrl, scope } = props;
     // TODO Make request with client_id & code to Flask API
-    postToExchangeApiUrl(apiUrl, code)
+    const payload: IPayload = { code, email, scope };
+    postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {
             // update responseState
         })
