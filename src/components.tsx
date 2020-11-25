@@ -7,7 +7,8 @@ import {
 } from "../src";
 import {useState} from "react";
 
-export interface IGoogleButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+/** @public */
+export interface IGoogleButton {
     /** Placeholder image displayed next to button text */
     readonly placeholder?: string;
     /** Remove default styles. The placeholder prop has no effect if placeholder is set to false */
@@ -72,7 +73,7 @@ const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeB
     return styles;
 }
 /** @internal */
-export const InnerButton = (props: IGoogleButton & { error?: string}) => {
+export const InnerButton = (props: IGoogleButton & { error?: string} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
     const { placeholder = "", defaultStyle = true, options } = props;
 
     const scopes = Authorization.createScopes(options.scopes);
@@ -137,7 +138,7 @@ function serverResponse(props: IServerResponse): void {
  * @param props see IGoogleButton
  * @constructor
  */
-export const GoogleButton = (props: IGoogleButton) => {
+export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
     const { callback } = props;
     const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
     const currentUrl = new URLSearchParams(window.location.search);
@@ -148,6 +149,7 @@ export const GoogleButton = (props: IGoogleButton) => {
         console.debug("`accessToken` set in local storage.")
         return null;
     } else if (responseState.error) {
+        console.error(`Error: Api call failed with ${queryParamsError} error.`)
         return <InnerButton {...props} error={responseState.error} />;
     } else if (queryParamsCode) {
         // Get rest of params

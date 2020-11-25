@@ -17,10 +17,17 @@ module.exports =  {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                },
+            }
         ],
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js", ".png"],
     },
     output: {
         crossOriginLoading: "anonymous",

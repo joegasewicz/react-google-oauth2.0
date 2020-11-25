@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import "./search.png";
+
 import {  GoogleButton, IAuthorizationOptions } from "../src";
 
 function App(props: any) {
@@ -11,6 +13,7 @@ function App(props: any) {
         scopes: ["openid", "profile", "email"],
         includeGrantedScopes: true,
         accessType: "offline",
+
     };
 
     return (
