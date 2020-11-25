@@ -4,6 +4,8 @@
 
 # React Google OAuth 2.0
 Easily add Google OAuth 2.0 Single Sign On to a React app & let your server handle your access & refresh tokens.
+This library will work directly with [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router) & provide
+Google OAuth 2.0 integration out of the box with minimal setup. 
 
 Docs: https://joegasewicz.github.io/react-google-oauth2.0/
 
@@ -52,3 +54,8 @@ The `GoogleButton` component will make the following request to your api:
 ```
 POST options = {body: { code: <code>, email: <email>, scope: <scope> }} URL = `apiUrl`
 ```
+
+### Flask-JWT-Router
+If you are using Flask as your REST api framework then this library is designed to work
+directly with `flask-jwt-router`. See [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router)
+for more details.
