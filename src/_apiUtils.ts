@@ -12,7 +12,6 @@ export async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): P
 /** @internal */
 export function serverResponse(props: any): void {
     const { email = "", code, apiUrl, scope } = props;
-    // TODO Make request with client_id & code to Flask API
     const payload: IPayload = { code, email, scope };
     postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {

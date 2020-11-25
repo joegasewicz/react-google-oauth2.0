@@ -1,9 +1,9 @@
-# React Google OAuth 2.0
-
 [![GitHub license](https://img.shields.io/github/license/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/issues)
 ![npm](https://img.shields.io/npm/v/react-google-oauth2)
 
+# React Google OAuth 2.0
+Easily add Google OAuth 2.0 Single Sign On to a React app & let your server handle your access & refresh tokens.
 
 Docs: https://joegasewicz.github.io/react-google-oauth2.0/
 
@@ -13,7 +13,7 @@ npm install react-google-oauth2
 ```
 
 
-## Usage
+## Quick Start
 ```bash
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -46,4 +46,9 @@ ReactDOM.render(
     </App>,
     document.getElementById("main"),
 );
+```
+### Your Rest API endpoint details
+The `GoogleButton` component will make the following request to your api:
+```
+POST `apiUrl` { code: <code> }
 ```
