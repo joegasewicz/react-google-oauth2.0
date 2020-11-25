@@ -50,5 +50,5 @@ ReactDOM.render(
 ### Your Rest API endpoint details
 The `GoogleButton` component will make the following request to your api:
 ```
-POST `apiUrl` { code: <code> }
+POST options = {body: { code: <code> }} URL = `apiUrl`
 ```
