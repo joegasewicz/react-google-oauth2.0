@@ -15,7 +15,21 @@ export interface IGoogleButton {
     readonly defaultStyle?: boolean;
     /** See IAuthorizationRequestParams */
     readonly options: IAuthorizationOptions;
-    /** Could be your preloader or any other dumb component */
+    /**
+     * @property
+     * @optional
+     * A React component or any function that returns a React component.
+     * This would normally be used to display a preloader to the user whilst
+     * the OAuth2.0 login strategy is in flight. By default a `Loading...`
+     * message will be displayed.
+     * @example
+     * ```
+     * <GoogleButton
+     *    callback={() => <>"Loading..."</>}
+     *    // other props...
+     * />
+     * ```
+     */
     readonly callback?: () => React.ReactHTMLElement<any>;
     /** The url of the api to perform the exchange */
     readonly apiUrl: string;

@@ -91,15 +91,15 @@ import {  GoogleButton, IAuthorizationOptions } from <span class="hljs-string">&
         scopes: [<span class="hljs-string">&quot;openid&quot;</span>, <span class="hljs-string">&quot;profile&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>],
         includeGrantedScopes: <span class="hljs-literal">true</span>,
         accessType: <span class="hljs-string">&quot;offline&quot;</span>,
-
     };
 
     <span class="hljs-built_in">return</span> (
         &lt;&gt;
           &lt;GoogleButton
-              placeholder=<span class="hljs-string">&quot;demo/search.png&quot;</span>
+              placeholder=<span class="hljs-string">&quot;demo/search.png&quot;</span> // Optional
               options={options}
               apiUrl=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
+              defaultStyle={<span class="hljs-literal">true</span>} // Optional
           /&gt;
         &lt;/&gt;
     );
