@@ -28,15 +28,15 @@ function App(props: any) {
         scopes: ["openid", "profile", "email"],
         includeGrantedScopes: true,
         accessType: "offline",
-        
     };
 
     return (
         <>
           <GoogleButton
-              placeholder="demo/search.png"
+              placeholder="demo/search.png" // Optional
               options={options}
               apiUrl="http://localhost:5000/google_login"
+              defaultStyle={true} // Optional
           />
         </>
     );
