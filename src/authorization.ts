@@ -2,7 +2,7 @@
 export enum GoogleAPIConnectionStrings {
     GOOGLE_OAUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth",
 }
-/** @public */
+/** @internal */
 interface IAuthorizationBase {
     clientId: string;
     /** Where you React app should redirect to if user has successfully logged in **/
@@ -97,7 +97,7 @@ export class Authorization implements IAuthorization {
         if(this.googleRedirectURL) {
             window.location.replace(this.googleRedirectURL)
         } else {
-            throw new Error("Error creating redirect url to Google's authorization server");
+            throw new ReferenceError("Error creating redirect url to Google's authorization server");
         }
     }
 }
