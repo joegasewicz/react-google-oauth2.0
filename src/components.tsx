@@ -19,13 +19,21 @@ export interface IGoogleButton extends React.ButtonHTMLAttributes<HTMLButtonElem
     callback?: () => React.ReactHTMLElement<any>;
     /** The url of the api to perform the exchange */
     apiUrl: string;
-    /**  */
-
 }
-
 /** @internal */
 type TypeButtonStyles = { [key: string]: string };
-
+/** @internal */
+interface IGoogleAuthContext { queryParamsCode: boolean; }
+/** @internal */
+const DEFAULT_GOOGLE_AUTH_STATE = { queryParamsCode: false };
+/** @internal */
+interface IServerResponseState { accessToken: string; }
+/** @internal */
+interface IPayload { }
+/** @internal */
+interface IApiResponseData { accessToken: string; }
+/** @internal */
+const SERVER_RESPONSE_STATE = { };
 /** @internal */
 const buttonStyling: TypeButtonStyles = {
     backgroundSize: "20px 20px",
@@ -38,22 +46,10 @@ const buttonStyling: TypeButtonStyles = {
     backgroundColor: "##bdc3c7",
     fontSize: "18px",
 };
-
-
-interface IGoogleAuthContext {
-    queryParamsCode: boolean;
-}
-
-const DEFAULT_GOOGLE_AUTH_STATE = {
-    queryParamsCode: false,
-
-};
-
 /** @internal */
 const GoogleAuthContext = React.createContext<IGoogleAuthContext>(DEFAULT_GOOGLE_AUTH_STATE);
 export const GoogleAuth = GoogleAuthContext.Provider;
 export const GoogleAuthConsumer = GoogleAuthContext.Consumer;
-
 /** @internal */
 const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeButtonStyles => {
     if(placeholder) {
@@ -61,15 +57,7 @@ const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeB
     }
     return styles;
 }
-
-/**
- * @example
- *
- *      <GoogleButton placeholder="demo/search.png" />
- *s
- * @param props see IGoogleButton
- * @constructor
- */
+/** @internal */
 export const InnerButton = (props: IGoogleButton & { error?: string}) => {
     const { placeholder = "", defaultStyle = true, options } = props;
 
@@ -80,7 +68,6 @@ export const InnerButton = (props: IGoogleButton & { error?: string}) => {
     const styles = defaultStyle ? _getBackgroundImg(placeholder, buttonStyling) : undefined;
     return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
 }
-
 /** @internal */
 interface IServerResponse {
     callback?: () => any;
@@ -91,23 +78,7 @@ interface IServerResponse {
     client_id: string;
     apiUrl: string;
 }
-
-interface IServerResponseState {
-    accessToken: string;
-}
-
-interface IPayload {
-
-}
-
-interface IApiResponseData {
-    accessToken: string;
-}
-
-const SERVER_RESPONSE_STATE = {
-
-};
-
+/** @internal */
 async function postToExchangeApiUrl(apiUrl: string, code: string) {
     const res = await fetch(apiUrl, {
         method: "POST",
@@ -117,17 +88,27 @@ async function postToExchangeApiUrl(apiUrl: string, code: string) {
     });
     return res.json();
 }
-
 /** @internal */
 function serverResponse(props: IServerResponse) {
     const { callback, email, error, code, apiUrl, scope } = props;
-
     // TODO Make request with client_id & code to Flask API
     postToExchangeApiUrl(apiUrl, code)
-        .then()
-        .catch();
+        .then((data: IApiResponseData) => {
+
+        })
+        .catch(err => {
+            // TODO
+        });
 }
 
+/**
+ * @example
+ *
+ *      <GoogleButton placeholder="demo/search.png" />
+ *s
+ * @param props see IGoogleButton
+ * @constructor
+ */
 export const GoogleButton = (props: IGoogleButton) => {
     const { callback } = props;
     const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
