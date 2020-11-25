@@ -26,7 +26,7 @@ interface IGoogleAuthContext { readonly queryParamsCode: boolean; }
 /** @internal */
 interface IServerResponseState { readonly accessToken?: string; error?: string }
 /** @internal */
-interface IApiResponseData { readonly accessToken: string; }
+interface IApiResponseData { readonly access_token: string; }
 /** @internal */
 interface IPayload {
     readonly email: string;
@@ -86,7 +86,7 @@ export const InnerButton = (props: IGoogleButton & { error?: string}) => {
 async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<IApiResponseData> {
     const res: Response = await fetch(apiUrl, {
         method: "POST",
-        mode: "no-cors",
+        // mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
@@ -94,14 +94,14 @@ async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<
 }
 /** @internal */
 function serverResponse(props: IServerResponse): void {
-    const { email = "", error, code, apiUrl, scope } = props;
+    const { email = "", code, apiUrl, scope } = props;
     // TODO Make request with client_id & code to Flask API
     const payload: IPayload = { code, email, scope };
     postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {
             // update responseState accessToken
             props.setResponseState({
-                accessToken: data.accessToken,
+                accessToken: data.access_token,
             });
         })
         .catch(err => {

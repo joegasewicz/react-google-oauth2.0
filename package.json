@@ -6,7 +6,7 @@
   "module": "lib/index.js",
   "description": "",
   "scripts": {
-    "build:dev": "webpack --env.mode devlopment --entry=./src/index.ts --output-path=dist --output-filename=index.js",
+    "build:dev": "webpack --env.mode devlopment --entry=./demo/index.tsx --config webpack.config.dev.js --output-path=dist --output-filename=index.js",
     "build:prod": "webpack --env.mode production --entry=./src/index.ts --output-path=lib --output-filename=index.js",
     "watch:prod": "webpack --watch --env.mode production --entry=./src/index.ts --output-path=lib --output-filename=index.js",
     "start": "webpack-dev-server --open \"Brave Browser\" --watch --config webpack.config.dev.js --output-path=dist --output-filename=bundle.js",

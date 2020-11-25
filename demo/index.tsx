@@ -7,7 +7,7 @@ function App(props: any) {
 
     const options: IAuthorizationOptions = {
         clientId: (process.env.CLIENT_ID as string),
-        redirectUri: "http://localhost:3000",
+        redirectUri: "http://localhost:3000/react-google-Oauth2.0/dist/index.html",
         scopes: ["openid", "profile", "email"],
         includeGrantedScopes: true,
         accessType: "offline",
