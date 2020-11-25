@@ -94,15 +94,21 @@ async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<
 }
 /** @internal */
 function serverResponse(props: IServerResponse): void {
-    const { email, error, code, apiUrl, scope } = props;
+    const { email = "", error, code, apiUrl, scope } = props;
     // TODO Make request with client_id & code to Flask API
     const payload: IPayload = { code, email, scope };
     postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {
-            // update responseState
+            // update responseState accessToken
+            props.setResponseState({
+                accessToken: data.accessToken,
+            });
         })
         .catch(err => {
             // update responseState error
+            props.setResponseState({
+                error: err,
+            })
         });
 }
 /**
@@ -141,6 +147,8 @@ export const GoogleButton = (props: IGoogleButton) => {
         window.localStorage.setItem("accessToken", responseState.accessToken);
         console.debug("`accessToken` set in local storage.")
         return null;
+    } else if (responseState.error) {
+        return <InnerButton {...props} error={responseState.error} />;
     } else if (queryParamsCode) {
         // Get rest of params
         const queryParamsEmail = currentUrl.get("email") || "";
@@ -155,9 +163,12 @@ export const GoogleButton = (props: IGoogleButton) => {
             setResponseState,
         };
         serverResponse(serverResponseProps);
+        console.debug("Waiting for remote api response");
         return callback ? callback() : <>Loading...</>;
     } else if(queryParamsError) {
+        console.error(`Error: Google login attempt failed with ${queryParamsError} error.`)
         return <InnerButton {...props} error={queryParamsError} />;
     }
-        return <InnerButton {...props} />;
+    // Display button with no errors
+    return <InnerButton {...props} />;
 }
