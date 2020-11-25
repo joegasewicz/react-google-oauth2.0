@@ -100,7 +100,7 @@
 					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ProviderExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProviderProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IGoogleAuthContext</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Provider</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/c96359b/src/components.tsx#L60">src/components.tsx:60</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/4b66511/src/components.tsx#L59">src/components.tsx:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -110,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<wbr>Consumer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConsumerProps</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IGoogleAuthContext</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Consumer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/c96359b/src/components.tsx#L61">src/components.tsx:61</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/4b66511/src/components.tsx#L60">src/components.tsx:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -127,18 +127,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/c96359b/src/components.tsx#L114">src/components.tsx:114</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/4b66511/src/components.tsx#L123">src/components.tsx:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
-									<dd><p>  <GoogleButton
-											placeholder="demo/search.png"
-											options={options}
-											apiUrl="http://localhost:5000/google_login"
-										/></p>
-									</dd>
+									<dd><p>The <a href="../interfaces/_authorization_.iauthorizationoptions.html">IAuthorizationOptions</a></p>
+										<pre><code> <span class="hljs-keyword">const</span> options: IAuthorizationOptions = {
+     <span class="hljs-attr">clientId</span>: (process.env.CLIENT_ID <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+      <span class="hljs-attr">redirectUri</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,
+      <span class="hljs-attr">scopes</span>: [<span class="hljs-string">&quot;openid&quot;</span>, <span class="hljs-string">&quot;profile&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>],
+      <span class="hljs-attr">includeGrantedScopes</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">accessType</span>: <span class="hljs-string">&quot;offline&quot;</span>,
+  };
+
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span>
+        <span class="hljs-attr">options</span>=<span class="hljs-string">{options}</span>
+        <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
+  /&gt;</span></span></code></pre></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -200,13 +208,7 @@
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 			</ul>
 		</div>
 	</div>

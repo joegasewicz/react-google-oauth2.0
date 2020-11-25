@@ -1,7 +1,8 @@
+/** @internal */
 export enum GoogleAPIConnectionStrings {
-    GOOGLE_0AUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth",
+    GOOGLE_OAUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth",
 }
-
+/** @public */
 interface IAuthorizationBase {
     clientId: string;
     /** Where you React app should redirect to if user has successfully logged in **/
@@ -17,20 +18,17 @@ interface IAuthorizationBase {
     loginHint?: string;
     prompt?: string;
 }
-
+/** @public */
 export interface IAuthorizationOptions extends IAuthorizationBase {
     scopes: Array<string>;
 }
-
+/** @internal */
 export interface IAuthorization {
     params: IAuthorizationOptions;
     /** Set to  `["openid", "profile"]` by default **/
     scopesStr: string;
 }
-
-/**
- *
- */
+/** @internal */
 export class Authorization implements IAuthorization {
 
     private _googleRedirectURL?: string;
@@ -46,6 +44,11 @@ export class Authorization implements IAuthorization {
         this.scopesStr = scopesStr;
     }
 
+    /**
+     * @internal
+     * @property googleRedirectURL Access the url for the initial
+     * browser call to Google's OAuth 2.0 server. Useful for debugging.
+     */
     public get googleRedirectURL() {
         return this._googleRedirectURL;
     }
@@ -64,7 +67,7 @@ export class Authorization implements IAuthorization {
             redirectUri,
             clientId,
         } = this.params;
-        const domain = GoogleAPIConnectionStrings.GOOGLE_0AUTH_ENDPOINT;
+        const domain = GoogleAPIConnectionStrings.GOOGLE_OAUTH_ENDPOINT;
         let url: string;
         url = `${domain}?scope=${this.scopesStr}&`;
         url = accessType ? `${url}access_type=${accessType}&` : url;

@@ -101,13 +101,22 @@ function serverResponse(props: IServerResponse): void {
 }
 /**
  * @example
+ * The {@link  IAuthorizationOptions}
+ * ```
+ *  const options: IAuthorizationOptions = {
+ *      clientId: (process.env.CLIENT_ID as string),
+ *       redirectUri: "http://localhost:3000",
+ *       scopes: ["openid", "profile", "email"],
+ *       includeGrantedScopes: true,
+ *       accessType: "offline",
+ *   };
  *
  *   <GoogleButton
  *         placeholder="demo/search.png"
  *         options={options}
  *         apiUrl="http://localhost:5000/google_login"
  *   />
- *
+ * ```
  * @param props see IGoogleButton
  * @constructor
  */
