@@ -25,15 +25,25 @@ type TypeButtonStyles = { [key: string]: string };
 /** @internal */
 interface IGoogleAuthContext { queryParamsCode: boolean; }
 /** @internal */
-const DEFAULT_GOOGLE_AUTH_STATE = { queryParamsCode: false };
-/** @internal */
 interface IServerResponseState { accessToken: string; }
 /** @internal */
 interface IPayload { }
 /** @internal */
 interface IApiResponseData { accessToken: string; }
 /** @internal */
+interface IServerResponse {
+    callback?: () => any;
+    email?: string;
+    error?: string;
+    code: string;
+    scope: string;
+    client_id: string;
+    apiUrl: string;
+}
+/** @internal */
 const SERVER_RESPONSE_STATE = { };
+/** @internal */
+const DEFAULT_GOOGLE_AUTH_STATE = { queryParamsCode: false };
 /** @internal */
 const buttonStyling: TypeButtonStyles = {
     backgroundSize: "20px 20px",
@@ -69,16 +79,6 @@ export const InnerButton = (props: IGoogleButton & { error?: string}) => {
     return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
 }
 /** @internal */
-interface IServerResponse {
-    callback?: () => any;
-    email?: string;
-    error?: string;
-    code: string;
-    scope: string;
-    client_id: string;
-    apiUrl: string;
-}
-/** @internal */
 async function postToExchangeApiUrl(apiUrl: string, code: string) {
     const res = await fetch(apiUrl, {
         method: "POST",
@@ -100,7 +100,6 @@ function serverResponse(props: IServerResponse) {
             // TODO
         });
 }
-
 /**
  * @example
  *
