@@ -108,9 +108,11 @@ function serverResponse(props: IServerResponse): void {
 /**
  * @example
  * **Quick Start:**
-*       First create an options object that implements an {@link  IAuthorizationOptions} type.
- *      Check the {@link  IAuthorizationOptions} and {@link  IAuthorizationBase} types for
- *      all required properties. Then, pass the options to the {@ GoogleButton} component.
+ *
+ * First create an options object that implements an {@link  IAuthorizationOptions} type.
+ * Check the {@link  IAuthorizationOptions} and {@link  IAuthorizationBase} types for
+ * all required properties. Then, pass the options to the {@link GoogleButton} component.
+ *
  * ```IAuthorizationOptions
  *  const options:  = {
  *      clientId: (process.env.CLIENT_ID as string),
