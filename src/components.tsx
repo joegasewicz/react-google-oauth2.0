@@ -5,6 +5,7 @@ import {
     GoogleAPIConnectionStrings,
     IAuthorizationOptions,
 } from "../src";
+import {serverResponse, storeAccessToken} from "./_apiUtils";
 import {useState} from "react";
 
 /** @public */
@@ -41,9 +42,9 @@ interface IGoogleAuthContext { readonly queryParamsCode: boolean; }
 /** @internal */
 interface IServerResponseState { readonly accessToken?: string; error?: string }
 /** @internal */
-interface IApiResponseData { readonly access_token: string; }
+export interface IApiResponseData { readonly access_token: string; }
 /** @internal */
-interface IPayload {
+export interface IPayload {
     readonly email: string;
     readonly code: string;
     readonly scope: string;
@@ -72,7 +73,7 @@ const buttonStyling: TypeButtonStyles = {
     border: "1px solid #bdc3c7",
     padding: "9px 23px",
     borderRadius: "9px",
-    backgroundColor: "##bdc3c7",
+    backgroundColor: "#bdc3c7",
     fontSize: "18px",
 };
 /** @internal */
@@ -96,35 +97,6 @@ export const InnerButton = (props: IGoogleButton & { error?: string} & React.But
 
     const styles = defaultStyle ? _getBackgroundImg(placeholder, buttonStyling) : undefined;
     return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
-}
-/** @internal */
-async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<IApiResponseData> {
-    const res: Response = await fetch(apiUrl, {
-        method: "POST",
-        // mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-    });
-    return res.json();
-}
-/** @internal */
-function serverResponse(props: IServerResponse): void {
-    const { email = "", code, apiUrl, scope } = props;
-    // TODO Make request with client_id & code to Flask API
-    const payload: IPayload = { code, email, scope };
-    postToExchangeApiUrl(apiUrl, payload)
-        .then((data: IApiResponseData) => {
-            // update responseState accessToken
-            props.setResponseState({
-                accessToken: data.access_token,
-            });
-        })
-        .catch(err => {
-            // update responseState error
-            props.setResponseState({
-                error: err,
-            })
-        });
 }
 /**
  * @example
@@ -159,7 +131,7 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
     if(responseState.accessToken) {
-        window.localStorage.setItem("accessToken", responseState.accessToken);
+        storeAccessToken(responseState.accessToken);
         console.debug("`accessToken` set in local storage.")
         return null;
     } else if (responseState.error) {

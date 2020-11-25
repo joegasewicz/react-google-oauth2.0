@@ -3,13 +3,9 @@ import {
 } from "../src";
 
 describe("#Authentication()", () => {
-    let assignMock = jest.fn();
     delete window.location;
-    (window.location.replace as any) = assignMock;
-
-    afterEach(() => {
-      assignMock.mockClear();
-    });
+    (window.location as any) = jest.mock;
+    (window.location.replace as any) = jest.fn();
 
   describe("#IAuthorization", () => {
         const testParamsOne: IAuthorizationOptions = {
@@ -22,7 +18,6 @@ describe("#Authentication()", () => {
         const auth = new Authorization(testParamsOne, scopesOne);
         auth.createAuthorizationRequestURL();
       it("Should have members", () => {
-            expect(auth).toHaveProperty("queryParamsCode");
             expect(auth).toHaveProperty("params");
             expect(auth).toHaveProperty("scopesStr");
             expect(auth).toHaveProperty("googleRedirectURL");
@@ -70,13 +65,12 @@ describe("#Authentication()", () => {
         };
         const scopesOne = "apples%20bananas%20plums";
         const auth = new Authorization(testParamsOne, scopesOne);
-
+        it("It should throw", () => {
+            expect(() => auth.redirect({})).toThrow(ReferenceError);
+        });
         it("It should redirect", () => {
            auth.createAuthorizationRequestURL();
            expect(auth.redirect({})).toEqual(undefined);
-        });
-        it("It should throw", () => {
-            expect(() => auth.redirect({})).toThrow(ReferenceError);
         });
     });
 });

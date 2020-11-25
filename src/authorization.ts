@@ -33,8 +33,6 @@ export class Authorization implements IAuthorization {
 
     private _googleRedirectURL?: string;
 
-    public queryParamsCode?: string;
-
     public params: IAuthorizationOptions;
 
     public scopesStr: string;

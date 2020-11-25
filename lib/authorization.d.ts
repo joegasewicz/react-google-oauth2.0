@@ -2,7 +2,7 @@
 export declare enum GoogleAPIConnectionStrings {
     GOOGLE_OAUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
 }
-/** @public */
+/** @internal */
 interface IAuthorizationBase {
     clientId: string;
     /** Where you React app should redirect to if user has successfully logged in **/
@@ -31,7 +31,6 @@ export interface IAuthorization {
 /** @internal */
 export declare class Authorization implements IAuthorization {
     private _googleRedirectURL?;
-    queryParamsCode?: string;
     params: IAuthorizationOptions;
     scopesStr: string;
     constructor(params: IAuthorizationOptions, scopesStr: string);

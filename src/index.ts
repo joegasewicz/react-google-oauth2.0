@@ -1,7 +1,7 @@
 import {
     Authorization,
     GoogleAPIConnectionStrings,
-    IAuthorizationOptions
+    IAuthorizationOptions,
 } from "./authorization";
 
 import {
@@ -9,6 +9,7 @@ import {
     GoogleAuth,
     GoogleAuthConsumer,
     IGoogleButton,
+    postToExchangeApiUrl,
 } from "./components";
 
 export  {
@@ -19,4 +20,5 @@ export  {
     GoogleAuthConsumer,
     IGoogleButton,
     IAuthorizationOptions,
+    postToExchangeApiUrl,
 }
