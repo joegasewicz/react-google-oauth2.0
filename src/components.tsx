@@ -9,34 +9,40 @@ import {useState} from "react";
 
 export interface IGoogleButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     /** Placeholder image displayed next to button text */
-    placeholder?: string;
+    readonly placeholder?: string;
     /** Remove default styles. The placeholder prop has no effect if placeholder is set to false */
-    defaultStyle?: boolean;
+    readonly defaultStyle?: boolean;
     /** See IAuthorizationRequestParams */
-    options: IAuthorizationOptions;
+    readonly options: IAuthorizationOptions;
     /** Could be your preloader or any other dumb component */
-    callback?: () => React.ReactHTMLElement<any>;
+    readonly callback?: () => React.ReactHTMLElement<any>;
     /** The url of the api to perform the exchange */
-    apiUrl: string;
+    readonly apiUrl: string;
 }
 /** @internal */
 type TypeButtonStyles = { [key: string]: string };
 /** @internal */
-interface IGoogleAuthContext { queryParamsCode: boolean; }
+interface IGoogleAuthContext { readonly queryParamsCode: boolean; }
 /** @internal */
-interface IServerResponseState { accessToken?: string; error?: string }
+interface IServerResponseState { readonly accessToken?: string; error?: string }
 /** @internal */
-interface IPayload { }
+interface IApiResponseData { readonly accessToken: string; }
 /** @internal */
-interface IApiResponseData { accessToken: string; }
+interface IPayload {
+    readonly email: string;
+    readonly code: string;
+    readonly scope: string;
+}
 /** @internal */
 interface IServerResponse {
-    email?: string;
+    readonly email?: string;
     error?: string;
-    code: string;
-    scope: string;
-    client_id: string;
-    apiUrl: string;
+    readonly code: string;
+    readonly scope: string;
+    readonly client_id: string;
+    readonly apiUrl: string;
+    responseState: IServerResponseState;
+    setResponseState: any; // TODO
 }
 /** @internal */
 const SERVER_RESPONSE_STATE = { };
@@ -143,6 +149,8 @@ export const GoogleButton = (props: IGoogleButton) => {
             code: queryParamsCode,
             client_id: props.options.clientId,
             apiUrl: props.apiUrl,
+            responseState,
+            setResponseState,
         };
         serverResponse(serverResponseProps);
         return callback ? callback() : <>Loading...</>;
