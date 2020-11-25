@@ -1,5 +1,10 @@
 React Google OAuth 2.0
 
+[![GitHub license](https://img.shields.io/github/license/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/issues)
+![npm](https://img.shields.io/npm/v/react-google-oauth2)
+
+
 Docs: https://joegasewicz.github.io/react-google-oauth2.0/
 
 ## Install
