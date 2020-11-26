@@ -1,6 +1,6 @@
 import {
     Authorization, IAuthorizationOptions
-} from "../src";
+} from "../src/authorization";
 
 describe("#Authentication()", () => {
     delete window.location;
