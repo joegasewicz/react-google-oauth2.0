@@ -2,7 +2,6 @@ import * as React from "react";
 
 import {
     Authorization,
-    GoogleAPIConnectionStrings,
     IAuthorizationOptions,
 } from "../src";
 import {serverResponse, storeAccessToken} from "./_apiUtils";

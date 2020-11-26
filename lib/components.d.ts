@@ -47,8 +47,6 @@ export declare const GoogleAuthConsumer: React.Consumer<IGoogleAuthContext>;
 export declare const InnerButton: (props: IGoogleButton & {
     error?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) => JSX.Element;
-/** @internal */
-export declare function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<IApiResponseData>;
 /**
  * @example
  * **Quick Start:**
