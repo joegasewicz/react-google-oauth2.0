@@ -1,6 +1,6 @@
 {
   "name": "react-google-oauth2",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
@@ -61,5 +61,9 @@
     "react-dom": "^16.13.1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
 }
