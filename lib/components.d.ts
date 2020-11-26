@@ -1,4 +1,4 @@
-import * as React from "react";
+import { default as React } from "react";
 import { IAuthorizationOptions } from "./authorization";
 /** @public */
 export interface IGoogleButton {

@@ -1,11 +1,9 @@
-import * as React from "react";
-
+import {default as React, useState} from "react";
 import {
     Authorization,
     IAuthorizationOptions,
 } from "./authorization";
 import {serverResponse, storeAccessToken} from "./_apiUtils";
-import {useState} from "react";
 
 /** @public */
 export interface IGoogleButton {

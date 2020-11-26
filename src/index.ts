@@ -7,7 +7,7 @@ import {
     IGoogleButton,
 } from "./components";
 
-export  {
+export {
     GoogleButton,
     IGoogleButton,
     IAuthorizationOptions,

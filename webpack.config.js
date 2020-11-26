@@ -10,7 +10,7 @@ module.exports =  function(env, argv) {
                 {
                     test: /\.tsx?$/,
                     use: "ts-loader",
-                    exclude: [/node_modules/, path.resolve(__dirname, "./demo")],
+                    exclude: [/node_modules/, path.resolve(__dirname, "./demo"), path.resolve(__dirname, "./tests")],
                 }
             ],
         },
