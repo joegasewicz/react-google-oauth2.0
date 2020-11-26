@@ -70,7 +70,9 @@
 				<a href="#react-google-oauth-20" id="react-google-oauth-20" style="color: inherit; text-decoration: none;">
 					<h1>React Google OAuth 2.0</h1>
 				</a>
-				<p>Easily add Google OAuth 2.0 Single Sign On to a React app &amp; let your server handle your access &amp; refresh tokens.</p>
+				<p>Easily add Google OAuth 2.0 Single Sign On to a React app &amp; let your server handle your access &amp; refresh tokens.
+					This library will work directly with <a href="https://github.com/joegasewicz/flask-jwt-router">Flask JWT Router</a> &amp; provide
+				Google OAuth 2.0 integration out of the box with minimal setup. </p>
 				<p>Docs: <a href="https://joegasewicz.github.io/react-google-oauth2.0/">https://joegasewicz.github.io/react-google-oauth2.0/</a></p>
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
@@ -114,7 +116,13 @@ ReactDOM.render(
 					<h3>Your Rest API endpoint details</h3>
 				</a>
 				<p>The <code>GoogleButton</code> component will make the following request to your api:</p>
-				<pre><code><span class="hljs-selector-tag">POST</span> `<span class="hljs-selector-tag">apiUrl</span>` { <span class="hljs-attribute">code</span>: &lt;code&gt; }</code></pre>
+				<pre><code>POST <span class="hljs-keyword">options</span> = {body: { code: <span class="hljs-symbol">&lt;code&gt;</span>, emai<span class="hljs-variable">l:</span> <span class="hljs-symbol">&lt;email&gt;</span>, scope: <span class="hljs-symbol">&lt;scope&gt;</span> }} URL = `apiUrl`</code></pre>
+				<a href="#flask-jwt-router" id="flask-jwt-router" style="color: inherit; text-decoration: none;">
+					<h3>Flask-JWT-Router</h3>
+				</a>
+				<p>If you are using Flask as your REST api framework then this library is designed to work
+					directly with <code>flask-jwt-router</code>. See <a href="https://github.com/joegasewicz/flask-jwt-router">Flask JWT Router</a>
+				for more details.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
