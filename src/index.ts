@@ -5,6 +5,12 @@ import {
 } from "./authorization";
 
 import {
+    postToExchangeApiUrl,
+    serverResponse,
+    storeAccessToken,
+} from "./_apiUtils";
+
+import {
     GoogleButton,
     GoogleAuth,
     GoogleAuthConsumer,
@@ -19,4 +25,7 @@ export  {
     GoogleAuthConsumer,
     IGoogleButton,
     IAuthorizationOptions,
+    postToExchangeApiUrl,
+    serverResponse,
+    storeAccessToken,
 }

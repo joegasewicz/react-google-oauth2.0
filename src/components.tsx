@@ -3,7 +3,7 @@ import * as React from "react";
 import {
     Authorization,
     IAuthorizationOptions,
-} from "../src";
+} from "./authorization";
 import {serverResponse, storeAccessToken} from "./_apiUtils";
 import {useState} from "react";
 

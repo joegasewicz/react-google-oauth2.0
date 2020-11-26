@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IAuthorizationOptions } from "../src";
+import { IAuthorizationOptions } from "./authorization";
 /** @public */
 export interface IGoogleButton {
     /** Placeholder image displayed next to button text */

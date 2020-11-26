@@ -1,10 +1,10 @@
 {
   "name": "react-google-oauth2",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
-  "description": "",
+  "description": "React frontend login with OAuth 2.0 & integrates a Rest API backend.",
   "scripts": {
     "build:dev": "webpack --env.mode devlopment --entry=./demo/index.tsx --config webpack.config.dev.js --output-path=dist --output-filename=index.js",
     "build:prod": "webpack --env.mode production --entry=./src/index.ts --output-path=lib --output-filename=index.js",
