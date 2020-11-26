@@ -9,7 +9,6 @@ import {
     GoogleAuth,
     GoogleAuthConsumer,
     IGoogleButton,
-    postToExchangeApiUrl,
 } from "./components";
 
 export  {
@@ -20,5 +19,4 @@ export  {
     GoogleAuthConsumer,
     IGoogleButton,
     IAuthorizationOptions,
-    postToExchangeApiUrl,
 }

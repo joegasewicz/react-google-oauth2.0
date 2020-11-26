@@ -1,27 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#GoogleButton should render a button 1`] = `
-<button
-  onClick={[Function]}
-  style={
-    Object {
-      "backgroundColor": "##bdc3c7",
-      "backgroundImage": "url(demo/search.png)",
-      "backgroundPosition": "12px 10px",
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": "20px 20px",
-      "border": "1px solid #bdc3c7",
-      "borderRadius": "9px",
-      "fontSize": "18px",
-      "padding": "9px 23px",
-      "textIndent": "19px",
-    }
-  }
->
-  Sign in with google
-</button>
-`;
-
 exports[`#GoogleButton should render a component 1`] = `
 <button
   onClick={[Function]}
