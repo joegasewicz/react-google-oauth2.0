@@ -2,9 +2,9 @@ const path = require("path");
 
 module.exports =  function(env, argv) {
     return {
-        mode: env.production ? "production" : "development",
+        mode: env.mode ? "production" : "development",
         entry: argv["entry"],
-        devtool: env.production ? "inline-source-map" : "eval",
+        devtool: env.mode ? "inline-source-map" : "eval",
         module: {
             rules: [
                 {
