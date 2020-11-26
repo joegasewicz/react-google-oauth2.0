@@ -1,5 +1,11 @@
-import {IApiResponseData, IPayload} from "./components";
-
+/** @internal */
+export interface IPayload {
+    readonly email: string;
+    readonly code: string;
+    readonly scope: string;
+}
+/** @internal */
+export interface IApiResponseData { readonly access_token: string; }
 /** @internal */
 export async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): Promise<IApiResponseData> {
     const res: Response = await fetch(apiUrl, {

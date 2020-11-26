@@ -41,14 +41,6 @@ interface IGoogleAuthContext { readonly queryParamsCode: boolean; }
 /** @internal */
 interface IServerResponseState { readonly accessToken?: string; error?: string }
 /** @internal */
-export interface IApiResponseData { readonly access_token: string; }
-/** @internal */
-export interface IPayload {
-    readonly email: string;
-    readonly code: string;
-    readonly scope: string;
-}
-/** @internal */
 interface IServerResponse {
     readonly email?: string;
     error?: string;
