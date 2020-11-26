@@ -22,7 +22,7 @@ module.exports =  function(env, argv) {
             filename: argv["output-filename"],
             path: path.resolve(__dirname, argv["output-path"]),
             library: "react-google-oauth",
-            libraryTarget: "umd",
+            libraryTarget: "commonjs2",
         },
 };
 };
