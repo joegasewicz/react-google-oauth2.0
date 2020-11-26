@@ -31,16 +31,6 @@ export interface IGoogleButton {
 interface IGoogleAuthContext {
     readonly queryParamsCode: boolean;
 }
-/** @internal */
-export interface IApiResponseData {
-    readonly access_token: string;
-}
-/** @internal */
-export interface IPayload {
-    readonly email: string;
-    readonly code: string;
-    readonly scope: string;
-}
 export declare const GoogleAuth: React.Provider<IGoogleAuthContext>;
 export declare const GoogleAuthConsumer: React.Consumer<IGoogleAuthContext>;
 /** @internal */

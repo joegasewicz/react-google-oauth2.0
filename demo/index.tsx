@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import "./search.png";
 
-import {  GoogleButton, IAuthorizationOptions } from "../src";
+import {  GoogleButton, IAuthorizationOptions } from "../lib";
 
 function App(props: any) {
 

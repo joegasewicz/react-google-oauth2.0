@@ -10,7 +10,7 @@ module.exports =  function(env, argv) {
                 {
                     test: /\.tsx?$/,
                     use: "ts-loader",
-                    exclude: [/node_modules/, path.resolve(__dirname, "./showcase")],
+                    exclude: [/node_modules/, path.resolve(__dirname, "./demo")],
                 }
             ],
         },
@@ -21,7 +21,7 @@ module.exports =  function(env, argv) {
         output: {
             filename: argv["output-filename"],
             path: path.resolve(__dirname, argv["output-path"]),
-            library: "react-bare-lib",
+            library: "react-google-oauth",
             libraryTarget: "umd",
         },
 };
