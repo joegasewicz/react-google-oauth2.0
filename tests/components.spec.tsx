@@ -142,4 +142,29 @@ describe("#GoogleButton", () => {
         expect(spy).toBeCalledWith("<access_token>");
     });
 
+    it("should not recall exchange server if access token is in localStorage", () => {
+        const spy1 = jest.fn();
+        const spy2 = jest.fn();
+        jest.spyOn(googleComponents, "isLoggedIn")
+            .mockImplementation(() => true);
+        jest.spyOn(React,  "useState")
+                .mockImplementation(() => [{accessToken: "<access_token>"}, jest.fn()]);
+        jest.spyOn(googleComponents, "serverResponse")
+            .mockImplementation(spy1);
+
+        jest.spyOn(googleComponents, "storeAccessToken")
+            .mockImplementation(spy2);
+
+        const component =  <GoogleButton
+            placeholder="demo/search.pnz" // Optional
+            options={testParamsOne}
+            apiUrl="http://localhost:5000/google_login"
+            defaultStyle={true} // Optional
+        />
+
+        const googleButton = renderer.create(component);
+        expect(spy1).toBeCalledTimes(0);
+        expect(spy2).toBeCalledTimes(0);
+    });
+
 });
