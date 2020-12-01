@@ -3,7 +3,13 @@ import * as ReactDOM from "react-dom";
 
 import "./search.png";
 
-import {  GoogleButton, IAuthorizationOptions } from "../src";
+import {
+    GoogleButton,
+    IAuthorizationOptions,
+    isLoggedIn,
+    createOAuthHeaders,
+    logOutOAuthUser,
+} from "../src";
 
 function App(props: any) {
 

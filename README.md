@@ -20,7 +20,13 @@ npm install react-google-oauth2
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {  GoogleButton, IAuthorizationOptions } from "../src";
+import {
+    GoogleButton,
+    IAuthorizationOptions,
+    isLoggedIn,
+    createOAuthHeaders,
+    logOutOAuthUser,
+} from "../src";
 
 function App(props: any) {
 
@@ -49,6 +55,26 @@ ReactDOM.render(
     document.getElementById("main"),
 );
 ```
+### OAuth2.0 Helper Functions
+Check if OAuth2.0 user is logged in
+```typescript jsx
+if(isLoggedIn()) { // returns true is accessToken exists in LocalStorage
+    // user logged code...
+}
+```
+Creat OAuth2.0 Server Headers
+```typescript jsx
+// Using Fetch API example:
+fetch(url, {
+    headers: createOAuthHeaders(),
+});
+```
+Log out OAuth2.0 users
+```typescript jsx
+logOutOAuthUser() // removes the accessToken from LocalStorage
+```
+
+
 ### Your Rest API endpoint details
 The `GoogleButton` component will make the following request to your api:
 ```
