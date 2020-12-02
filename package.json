@@ -13,7 +13,7 @@
     "test": "jest",
     "test:update": "jest --updateSnapshot",
     "typedoc": "typedoc --mode modules --ignoreCompilerErrors --stripInternal --out docs src && touch docs/.nojekyll && cp -r images docs/images",
-    "release": "npm publish"
+    "release": "npm run build:prod && npm publish"
   },
   "jest": {
     "moduleFileExtensions": [
