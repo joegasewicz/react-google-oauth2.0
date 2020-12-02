@@ -24,13 +24,22 @@ export function serverResponse(props: any): void {
     postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {
             // update responseState accessToken
-            props.setResponseState({
-                accessToken: data.access_token,
-            });
+            if(!("access_token" in data)) {
+                props.setResponseState({
+                    error: "No access_token in response data!",
+                });
+            } else {
+                props.setResponseState({
+                    accessToken: data.access_token,
+                });
+            }
+
         })
         .catch(err => {
             props.setResponseState({
-                error: err,
+                ...props.responseState,
+                error: err.message,
+                accessToken: undefined,
             })
         });
 }
@@ -77,7 +86,16 @@ export function _getAccessToken() {
  */
 export function createOAuthHeaders(): Object {
     return {
-        "Content-type": "application/json",
+        "Content-type": "application/jsons",
         "X-Auth-Token": `Bearer ${_getAccessToken()}`
+    }
+}
+
+/** @internal */
+export function removeOAuthQueryParams(): void {
+    const currentLocation = document.location.href;
+    if(document.location.search) {
+        const clean_uri = currentLocation.substring(0, currentLocation.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_uri);
     }
 }

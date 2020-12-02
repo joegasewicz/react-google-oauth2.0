@@ -3,7 +3,12 @@ import {
     Authorization,
     IAuthorizationOptions,
 } from "./authorization";
-import {serverResponse, storeAccessToken, isLoggedIn} from "./_apiUtils";
+import {
+    serverResponse,
+    storeAccessToken,
+    isLoggedIn,
+    removeOAuthQueryParams,
+} from "./_apiUtils";
 
 /** @public */
 export interface IGoogleButton {
@@ -31,13 +36,18 @@ export interface IGoogleButton {
     readonly callback?: () => React.ReactHTMLElement<any>;
     /** The url of the api to perform the exchange */
     readonly apiUrl: string;
+    /**
+     * Optional. Default set to false.
+     * Display an error to the user (will be displayed in a child `div` element).
+     */
+    readonly displayErrors?: boolean;
 }
 /** @internal */
 type TypeButtonStyles = { [key: string]: string };
 /** @internal */
 interface IGoogleAuthContext { readonly queryParamsCode: boolean; }
 /** @internal */
-interface IServerResponseState { readonly accessToken?: string; error?: string }
+interface IServerResponseState { readonly accessToken?: string; error?: string}
 /** @internal */
 interface IServerResponse {
     readonly email?: string;
@@ -78,14 +88,23 @@ const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeB
 }
 /** @internal */
 export const InnerButton = (props: IGoogleButton & { error?: string} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-    const { placeholder = "", defaultStyle = true, options } = props;
+    const { placeholder = "", defaultStyle = true, options, displayErrors = false } = props;
 
     const scopes = Authorization.createScopes(options.scopes);
     const auth = new Authorization(options, scopes);
     auth.createAuthorizationRequestURL();
 
     const styles = defaultStyle ? _getBackgroundImg(placeholder, buttonStyling) : undefined;
-    return <button style={styles} onClick={auth.redirect} >Sign in with google</button>
+    if(props.error) {
+        console.error(`[React-Google-OAuth2] Error: ${props.error}
+         - To display the error to the user, set IGoogleProps displayErrors to true.
+         See https://joegasewicz.github.io/react-google-oauth2.0/`);
+    }
+    removeOAuthQueryParams();
+    return <>
+        <button style={styles} onClick={auth.redirect} >Sign in with google</button>
+        {(props.displayErrors && props.error) && <div>{props.error}</div>}
+    </>
 }
 /**
  * @example
@@ -119,15 +138,14 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
     const currentUrl = new URLSearchParams(window.location.search);
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
-    if(responseState.accessToken) {
+    if(responseState.accessToken && !isLoggedIn()) {
         storeAccessToken(responseState.accessToken);
-
         console.debug("`accessToken` set in local storage.")
         return null;
     } else if (responseState.error) {
-        console.error(`Error: Api call failed with ${queryParamsError} error.`)
+        console.error(`[React-Google-OAuth2] Error: Api call failed with ${responseState.error} error.`);
         return <InnerButton {...props} error={responseState.error} />;
-    } else if (queryParamsCode) {
+    } else if (queryParamsCode && !isLoggedIn()) {
         // Get rest of params
         const queryParamsEmail = currentUrl.get("email") || "";
         const queryParamsScope = currentUrl.get("scope") || "";
@@ -140,6 +158,7 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
             responseState,
             setResponseState,
         };
+        removeOAuthQueryParams();
         serverResponse(serverResponseProps);
         console.debug("Waiting for remote api response");
         return callback ? callback() : <>Loading...</>;

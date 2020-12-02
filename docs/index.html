@@ -84,7 +84,13 @@
 				<pre><code class="language-bash">import * as React from <span class="hljs-string">&quot;react&quot;</span>;
 import * as ReactDOM from <span class="hljs-string">&quot;react-dom&quot;</span>;
 
-import {  GoogleButton, IAuthorizationOptions } from <span class="hljs-string">&quot;../src&quot;</span>;
+import {
+    GoogleButton,
+    IAuthorizationOptions,
+    isLoggedIn,
+    createOAuthHeaders,
+    logOutOAuthUser,
+} from <span class="hljs-string">&quot;../src&quot;</span>;
 
 <span class="hljs-keyword">function</span> App(props: any) {
 
@@ -112,6 +118,20 @@ ReactDOM.render(
     &lt;/App&gt;,
     document.getElementById(<span class="hljs-string">&quot;main&quot;</span>),
 );</code></pre>
+				<a href="#oauth20-helper-functions" id="oauth20-helper-functions" style="color: inherit; text-decoration: none;">
+					<h3>OAuth2.0 Helper Functions</h3>
+				</a>
+				<p>Check if OAuth2.0 user is logged in</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">if</span>(isLoggedIn()) { <span class="hljs-comment">// returns true is accessToken exists in LocalStorage</span>
+    <span class="hljs-comment">// user logged code...</span>
+}</code></pre>
+				<p>Creat OAuth2.0 Server Headers</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">// Using Fetch API example:</span>
+fetch(url, {
+    <span class="hljs-attr">headers</span>: createOAuthHeaders(),
+});</code></pre>
+				<p>Log out OAuth2.0 users</p>
+				<pre><code class="language-typescript">logOutOAuthUser() <span class="hljs-comment">// removes the accessToken from LocalStorage</span></code></pre>
 				<a href="#your-rest-api-endpoint-details" id="your-rest-api-endpoint-details" style="color: inherit; text-decoration: none;">
 					<h3>Your Rest API endpoint details</h3>
 				</a>
