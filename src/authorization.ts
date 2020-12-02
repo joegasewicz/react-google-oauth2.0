@@ -76,7 +76,7 @@ export class Authorization implements IAuthorization {
     /** @internal */
     public createAuthorizationRequestURL(): void {
         const {
-            accessType,
+            accessType = "offline",
             includeGrantedScopes = true,
             responseType = "code",
             state = null,

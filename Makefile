@@ -14,7 +14,7 @@ start:
 	npm run start
 
 test:
-	npm run tes
+	npm run test
 
 typedoc:
 	npm run typedoc
