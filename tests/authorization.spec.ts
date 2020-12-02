@@ -74,4 +74,27 @@ describe("#Authentication()", () => {
            expect(auth.redirect({})).toEqual(undefined);
         });
     });
+
+       describe("#testAccessType()", () => {
+        const testParamsOne: IAuthorizationOptions = {
+            clientId: "<CLIENT_ID>",
+            redirectUri: "http://localhost:3000",
+            scopes: ["openid", "profile", "email"],
+            includeGrantedScopes: true,
+            accessType: "online",
+        };
+        const scopesOne = "apples%20bananas%20plums";
+        const auth = new Authorization(testParamsOne, scopesOne);
+        auth.createAuthorizationRequestURL();
+        it("should return the expected url", () => {
+            const expectedResult = "https://accounts.google.com/o/oauth2/v2/auth?" +
+                "scope=apples%20bananas%20plums&" +
+                "access_type=online&" +
+                "include_granted_scopes=true&" +
+                "response_type=code&" +
+                "redirect_uri=http://localhost:3000&" +
+                "client_id=<CLIENT_ID>";
+            expect(auth.googleRedirectURL).toEqual(expectedResult);
+        });
+    });
 });
