@@ -4,7 +4,7 @@ module.exports =  function(env, argv) {
     return {
         mode: env.mode ? "production" : "development",
         entry: argv["entry"],
-        devtool: env.mode ? "inline-source-map" : "eval",
+        devtool: "inline-source-map",
         module: {
             rules: [
                 {
