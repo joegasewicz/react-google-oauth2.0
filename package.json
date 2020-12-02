@@ -1,19 +1,19 @@
 {
   "name": "react-google-oauth2",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
   "description": "React frontend login with OAuth 2.0 & integrates a Rest API backend.",
   "scripts": {
-    "build:dev": "webpack --env.mode devlopment --entry=./demo/index.tsx --config webpack.config.dev.js --output-path=dist --output-filename=index.js",
+    "build:dev": "webpack --env.mode development --entry=./demo/index.tsx --config webpack.config.dev.js --output-path=dist --output-filename=index.js",
     "build:prod": "webpack --env.mode production --entry=./src/index.ts --output-path=lib --output-filename=index.js --declarations",
     "watch:prod": "webpack --watch --env.mode production --entry=./src/index.ts --output-path=lib --output-filename=index.js",
     "start": "webpack-dev-server --open \"Brave Browser\" --watch --config webpack.config.dev.js --output-path=dist --output-filename=bundle.js",
     "test": "jest",
     "test:update": "jest --updateSnapshot",
     "typedoc": "typedoc --mode modules --ignoreCompilerErrors --stripInternal --out docs src && touch docs/.nojekyll && cp -r images docs/images",
-    "release": "npm publish"
+    "release": "npm run build:prod && npm publish"
   },
   "jest": {
     "moduleFileExtensions": [
