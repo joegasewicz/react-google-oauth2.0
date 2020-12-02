@@ -119,7 +119,7 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
     const currentUrl = new URLSearchParams(window.location.search);
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
-    if(responseState.accessToken && !isLoggedIn()) {
+    if(responseState.accessToken) {
         storeAccessToken(responseState.accessToken);
 
         console.debug("`accessToken` set in local storage.")
@@ -127,7 +127,7 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
     } else if (responseState.error) {
         console.error(`Error: Api call failed with ${queryParamsError} error.`)
         return <InnerButton {...props} error={responseState.error} />;
-    } else if (!isLoggedIn() && queryParamsCode) {
+    } else if (queryParamsCode) {
         // Get rest of params
         const queryParamsEmail = currentUrl.get("email") || "";
         const queryParamsScope = currentUrl.get("scope") || "";
