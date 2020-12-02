@@ -48,6 +48,7 @@ describe("#Authentication()", () => {
         it("should return the expects url", () => {
             const expectedResult = "https://accounts.google.com/o/oauth2/v2/auth?" +
                 "scope=apples%20bananas%20plums&" +
+                "access_type=offline&" +
                 "include_granted_scopes=true&" +
                 "response_type=code&" +
                 "redirect_uri=http://localhost:3000&" +

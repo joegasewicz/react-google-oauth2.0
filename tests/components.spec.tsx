@@ -94,7 +94,7 @@ describe("#GoogleButton", () => {
         button.props.onClick();
         const expected = "https://accounts.google.com/o/oauth2/v2/auth?" +
             "scope=openid%20profile%20email&" +
-            "include_granted_scopes=true&response_type=code&" +
+            "access_type=offline&include_granted_scopes=true&response_type=code&" +
             "redirect_uri=http://localhost:3000&" +
             "client_id=<CLIENT_ID>";
         expect(window.location.href).toEqual(expected);
