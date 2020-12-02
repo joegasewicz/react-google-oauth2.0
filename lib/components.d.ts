@@ -26,6 +26,11 @@ export interface IGoogleButton {
     readonly callback?: () => React.ReactHTMLElement<any>;
     /** The url of the api to perform the exchange */
     readonly apiUrl: string;
+    /**
+     * Optional. Default set to false.
+     * Display an error to the user (will be displayed in a child `div` element).
+     */
+    readonly displayErrors?: boolean;
 }
 /** @internal */
 interface IGoogleAuthContext {

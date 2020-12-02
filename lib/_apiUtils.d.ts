@@ -42,3 +42,5 @@ export declare function _getAccessToken(): string | null;
  * @return Object
  */
 export declare function createOAuthHeaders(): Object;
+/** @internal */
+export declare function removeOAuthQueryParams(): void;
