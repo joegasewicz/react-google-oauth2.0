@@ -9,7 +9,11 @@ import {
     isLoggedIn,
     createOAuthHeaders,
     logOutOAuthUser,
+    GoogleAuth,
+    IGoogleButton,
 } from "../src";
+import {useState} from "react";
+
 
 function App(props: any) {
 
@@ -21,15 +25,23 @@ function App(props: any) {
         accessType: "offline",
     };
 
+
+
     return (
         <>
-          <GoogleButton
-              placeholder="demo/search.png" // Optional
-              options={options}
-              apiUrl="http://localhost:5000/google_login"
-              defaultStyle={true} // Optional
-              displayErrors={true}
-          />
+            <GoogleAuth>
+                {({isAuthenticated}) => {
+                    // isAuthenticated will get set to true when a user has successfully logged in.
+                    console.log("value: ", isAuthenticated); // value: true
+                    return <GoogleButton
+                          placeholder="demo/search.png" // Optional
+                          options={options}
+                          apiUrl="http://localhost:5000/google_login"
+                          defaultStyle={true} // Optional
+                          displayErrors={true}
+                         />
+                }}
+            </GoogleAuth>
         </>
     );
 }

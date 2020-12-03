@@ -82,12 +82,12 @@ export function _getAccessToken() {
  *      headers: createOAuthHeaders(),
  *  })
  * ```
- * @return Object
+ * @return Objects
  */
 export function createOAuthHeaders(): Object {
     return {
         "Content-type": "application/jsons",
-        "X-Auth-Token": `Bearer ${_getAccessToken()}`
+        "X-Auth-Token": `Bearer ${_getAccessToken()}`,
     }
 }
 
