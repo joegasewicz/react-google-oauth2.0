@@ -26,7 +26,8 @@ import {
     isLoggedIn,
     createOAuthHeaders,
     logOutOAuthUser,
-} from "../src";
+    GoogleAuth,
+} from "react-google-oauth2";
 
 function App(props: any) {
 
@@ -54,6 +55,25 @@ ReactDOM.render(
     </App>,
     document.getElementById("main"),
 );
+```
+### GoogleAuth Provider
+Get notified when a user has logged in successfully by wrapping the 
+`GoogleButton` component within the `GoogleAuth` provider. For example:
+```typescript jsx
+import {
+    GoogleAuth
+} from "react-google-oauth2"; 
+
+<GoogleAuth>
+{({isAuthenticated}) => {
+    // isAuthenticated will get set to true when a user has successfully logged in.
+    console.log("value: ", isAuthenticated); // value: true or false
+    return <GoogleButton
+              // options...
+            />
+}}
+</GoogleAuth>
+
 ```
 ### OAuth2.0 Helper Functions
 Check if OAuth2.0 user is logged in
