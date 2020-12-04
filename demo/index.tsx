@@ -10,6 +10,7 @@ import {
     createOAuthHeaders,
     logOutOAuthUser,
     GoogleAuth,
+    GoogleAuthConsumer,
     IGoogleButton,
 } from "../src";
 import {useState} from "react";
@@ -30,18 +31,20 @@ function App(props: any) {
     return (
         <>
             <GoogleAuth>
-                {({isAuthenticated}) => {
-                    // isAuthenticated will get set to true when a user has successfully logged in.
-                    console.log("value: ", isAuthenticated); // value: true
-                    return <GoogleButton
-                          placeholder="demo/search.png" // Optional
-                          options={options}
-                          apiUrl="http://localhost:5000/google_login"
-                          defaultStyle={true} // Optional
-                          displayErrors={true}
-                         />
-                }}
+                <GoogleButton
+                  placeholder="demo/search.png" // Optional
+                  options={options}
+                  apiUrl="http://localhost:5000/google_login"
+                  defaultStyle={true} // Optional
+                  displayErrors={true}>Sign in with google</GoogleButton>
+                <GoogleAuthConsumer>
+                    {(test: any) => {
+                        console.log("RESULT ----> ", test);
+                        return null;
+                    }}
+                </GoogleAuthConsumer>
             </GoogleAuth>
+
         </>
     );
 }

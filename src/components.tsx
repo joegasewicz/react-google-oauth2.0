@@ -45,6 +45,7 @@ export interface IGoogleButton {
 /** @internal */
 type TypeButtonStyles = { [key: string]: string };
 /** @internal */
+type TypeGoogleButton = IGoogleButton & React.ButtonHTMLAttributes<HTMLButtonElement>;
 interface IServerResponseState { readonly accessToken?: string; error?: string}
 /** @internal */
 interface IServerResponse {
@@ -72,15 +73,36 @@ const buttonStyling: TypeButtonStyles = {
     backgroundColor: "#bdc3c7",
     fontSize: "18px",
 };
+
 interface IOAuthState {
-    isAuthenticated: boolean;
-    readonly _updateOAuth?: Function;
+    isAuthenticated?: boolean;
+    setOAuthState?: Function;
 }
 /** @internal */
-const GoogleAuthContext = React.createContext<IOAuthState>({
-    isAuthenticated: true});
+const GoogleAuthContext = React.createContext<IOAuthState>({});
+/** @internal */
 export const GoogleAuthProvider = GoogleAuthContext.Provider;
-export const GoogleAuth = GoogleAuthContext.Consumer;
+/**
+ * @example
+ * Get notified when a user has logged in successfully by wrapping the GoogleButton
+ * component within the GoogleAuth provider. For example:
+ * ```
+ *    import {
+ *       GoogleAuth
+ *   } from "react-google-oauth2";
+ *
+ *   <GoogleAuth>
+ *   {({isAuthenticated}) => {
+ *       // isAuthenticated will get set to true when a user has successfully logged in.
+ *       console.log("value: ", isAuthenticated); // value: true or false
+ *       return <GoogleButton
+ *                 // options...
+ *               />
+ *   }}
+ *   </GoogleAuth>
+ * ```
+ */
+export const GoogleAuthConsumer = GoogleAuthContext.Consumer;
 /** @internal */
 const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeButtonStyles => {
     if(placeholder) {
@@ -88,10 +110,9 @@ const _getBackgroundImg = (placeholder: string, styles: TypeButtonStyles): TypeB
     }
     return styles;
 }
+
 /** @internal */
 interface IInnerButtonProps extends IGoogleButton {
-    isAuthenticated: boolean;
-    _updateOAuth: (t: any) => void;
     error?: string;
 }
 /** @internal */
@@ -101,8 +122,6 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
         defaultStyle = true,
         options,
         displayErrors = false,
-        isAuthenticated,
-        _updateOAuth,
     } = props;
 
     const scopes = Authorization.createScopes(options.scopes);
@@ -117,10 +136,8 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
     }
     removeOAuthQueryParams();
     return <>
-          <GoogleAuthProvider value={{_updateOAuth, isAuthenticated}}>
-            <button style={styles} onClick={auth.redirect} >Sign in with google</button>
-            {(props.displayErrors && props.error) && <div>{props.error}</div>}
-          </GoogleAuthProvider>
+        <button style={styles} onClick={auth.redirect} >{props.children}</button>
+        {(displayErrors && props.error) && <div>{props.error}</div>}
     </>
 }
 /**
@@ -149,33 +166,31 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
  * @param props see IGoogleButton
  * @constructor
  */
-export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-    const { callback } = props;
-    const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
-     const [isAuthenticated, setOAuthState] = useState(false);
-    const _updateOAuth = (isAuth: boolean) => setOAuthState(!isAuth)
+export function GoogleButton(props: TypeGoogleButton) {
+    const {callback} = props;
     const oauthContext = useContext<IOAuthState>(GoogleAuthContext);
     const currentUrl = new URLSearchParams(window.location.search);
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
-    if(responseState.accessToken && !isLoggedIn()) {
-        storeAccessToken(responseState.accessToken);
-        useEffect(() =>
-            (oauthContext as any)._updateOAuth(isAuthenticated)
-            , []);
-        console.debug("`accessToken` set in local storage.");
-        return null;
-    } else if (responseState.error) {
-        console.error(`[React-Google-OAuth2] Error: Api call failed with ${responseState.error} error.`);
-        return <InnerButton
-                {...props}
-                placeholder={props.placeholder}
-                error={responseState.error}
-                _updateOAuth={_updateOAuth}
-                apiUrl={props.apiUrl}
-                isAuthenticated={isAuthenticated}
-                options={props.options}
+    let _inner =
+        <InnerButton
+            {...props}
+            placeholder={props.placeholder}
+            error={(oauthContext as any).responseState.error}
+            options={props.options}
         />;
+    if ((oauthContext as any).responseState.accessToken && !isLoggedIn()) {
+        storeAccessToken((oauthContext as any).responseState.accessToken);
+        console.debug("`accessToken` set in local storage.");
+        if(typeof (oauthContext as any).setOAuthState === "function") {
+            useEffect(() => {
+                (oauthContext as any).setOAuthState(true);
+            });
+        }
+        return null;
+    } else if ((oauthContext as any).responseState.error) {
+        console.error(`[React-Google-OAuth2] Error: Api call failed with ${(oauthContext as any).responseState.error} error.`);
+        return _inner;
     } else if (queryParamsCode && !isLoggedIn()) {
         // Get rest of params
         const queryParamsEmail = currentUrl.get("email") || "";
@@ -186,35 +201,35 @@ export const GoogleButton = (props: IGoogleButton & React.ButtonHTMLAttributes<H
             code: queryParamsCode,
             client_id: props.options.clientId,
             apiUrl: props.apiUrl,
-            responseState,
-            setResponseState,
+            responseState: (oauthContext as any).responseState,
+            setResponseState: (oauthContext as any).setResponseState,
         };
         removeOAuthQueryParams();
         useEffect(() => {
-           serverResponse(serverResponseProps);
+            serverResponse(serverResponseProps);
         }, []);
         console.debug("Waiting for remote api response");
         return callback ? callback() : <>Loading...</>;
-    } else if(queryParamsError) {
+    } else if (queryParamsError) {
         console.error(`Error: Google login attempt failed with ${queryParamsError} error.`)
-        return <InnerButton
-                {...props}
-                placeholder={props.placeholder}
-                error={responseState.error}
-                _updateOAuth={_updateOAuth}
-                apiUrl={props.apiUrl}
-                isAuthenticated={isAuthenticated}
-                options={props.options}
-        />;;
+        return _inner;
     }
     // Display button with no errors
-    return <InnerButton
-                {...props}
-                placeholder={props.placeholder}
-                error={responseState.error}
-                _updateOAuth={_updateOAuth}
-                apiUrl={props.apiUrl}
-                isAuthenticated={isAuthenticated}
-                options={props.options}
-        />;;
+    return _inner;
+}
+
+export const GoogleAuth = (props: any) => {
+    const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
+      const [isAuthenticated, setOAuthState] = useState<boolean>(isLoggedIn());
+    const _providerProps = {
+        isAuthenticated,
+        setOAuthState,
+        responseState,
+        setResponseState,
+    };
+    return  (
+        <GoogleAuthProvider value={_providerProps}>
+            {props.children}
+        </GoogleAuthProvider>
+    );
 }

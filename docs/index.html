@@ -90,7 +90,8 @@ import {
     isLoggedIn,
     createOAuthHeaders,
     logOutOAuthUser,
-} from <span class="hljs-string">&quot;../src&quot;</span>;
+    GoogleAuth,
+} from <span class="hljs-string">&quot;react-google-oauth2&quot;</span>;
 
 <span class="hljs-keyword">function</span> App(props: any) {
 
@@ -118,6 +119,25 @@ ReactDOM.render(
     &lt;/App&gt;,
     document.getElementById(<span class="hljs-string">&quot;main&quot;</span>),
 );</code></pre>
+				<a href="#googleauth-provider" id="googleauth-provider" style="color: inherit; text-decoration: none;">
+					<h3>GoogleAuth Provider</h3>
+				</a>
+				<p>Get notified when a user has logged in successfully by wrapping the
+				<code>GoogleButton</code> component within the <code>GoogleAuth</code> provider. For example:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
+    GoogleAuth
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>; 
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuth</span>&gt;</span>
+{({isAuthenticated}) =&gt; {
+    // isAuthenticated will get set to true when a user has successfully logged in.
+    console.log(&quot;value: &quot;, isAuthenticated); // value: true or false
+    return <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+              // <span class="hljs-attr">options...</span>
+            /&gt;</span>
+}}
+<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuth</span>&gt;</span></span>
+</code></pre>
 				<a href="#oauth20-helper-functions" id="oauth20-helper-functions" style="color: inherit; text-decoration: none;">
 					<h3>OAuth2.0 Helper Functions</h3>
 				</a>
