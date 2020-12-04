@@ -58,7 +58,10 @@ ReactDOM.render(
 ```
 ### GoogleAuth Provider & GoogleAuthConsumer
 Get notified when a user has logged in successfully by wrapping the 
-`GoogleButton` component within the `GoogleAuth` provider. For example:
+`GoogleButton` component within the `GoogleAuth` provider.
+You can then use the `GoogleAuthConsumer` to redirect to your authorized routes
+when `{isAuthenticated}` is true.
+For example:
 ```typescript jsx
 import {
     GoogleAuth,
