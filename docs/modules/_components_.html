@@ -75,18 +75,19 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_components_.igooglebutton.html" class="tsd-kind-icon">IGoogle<wbr>Button</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/_components_.ioauthstate.html" class="tsd-kind-icon">IOAuth<wbr>State</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/_components_.iserverresponsestate.html" class="tsd-kind-icon">IServer<wbr>Response<wbr>State</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_components_.html#googleauth" class="tsd-kind-icon">Google<wbr>Auth</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_components_.html#googleauthprovider" class="tsd-kind-icon">Google<wbr>Auth<wbr>Provider</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_components_.html#googleauthconsumer" class="tsd-kind-icon">Google<wbr>Auth<wbr>Consumer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_components_.html#googleauth" class="tsd-kind-icon">Google<wbr>Auth</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_components_.html#googlebutton" class="tsd-kind-icon">Google<wbr>Button</a></li>
 							</ul>
 						</section>
@@ -96,39 +97,72 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="googleauth" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Google<wbr>Auth</h3>
-					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConsumerProps</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_components_.ioauthstate.html" class="tsd-signature-type">IOAuthState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Consumer</span></div>
+					<a name="googleauthconsumer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Google<wbr>Auth<wbr>Consumer</h3>
+					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<wbr>Consumer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConsumerProps</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_components_.ioauthstate.html" class="tsd-signature-type">IOAuthState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Consumer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/80beeb1/src/components.tsx#L83">components.tsx:83</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/91ac418/src/components.tsx#L105">components.tsx:105</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="googleauthprovider" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Google<wbr>Auth<wbr>Provider</h3>
-					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<wbr>Provider<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ProviderExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProviderProps</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_components_.ioauthstate.html" class="tsd-signature-type">IOAuthState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Provider</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/80beeb1/src/components.tsx#L82">components.tsx:82</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>example</dt>
+							<dd><p>Get notified when a user has logged in successfully by wrapping the GoogleButton
+								component within the GoogleAuth provider. For example:</p>
+								<pre><code>   <span class="hljs-keyword">import</span> {
+      GoogleAuth
+  } from <span class="hljs-string">&quot;react-google-oauth2&quot;</span>;
+
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuth</span>&gt;</span>
+  </span><span class="xquery">{({isAuthenticated}</span><span class="xml">) =&gt; </span><span class="xquery">{
+      // isAuthenticated will get set <span class="hljs-keyword">to</span><span class="hljs-built_in"> true</span> <span class="hljs-keyword">when</span> a user has successfully logged <span class="hljs-keyword">in</span>.
+      console.log(<span class="hljs-string">&quot;value: &quot;</span>, isAuthenticated); // value:<span class="hljs-built_in"> true</span> <span class="hljs-keyword">or</span><span class="hljs-built_in"> false</span>
+      <span class="hljs-keyword">return</span> &lt;GoogleButton
+                // options...
+              /&gt;
+  }</span><span class="xml">}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuth</span>&gt;</span></span></code></pre></dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="googlebutton" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Google<wbr>Button</h3>
+					<a name="googleauth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Google<wbr>Auth</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Google<wbr>Button<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><a href="../interfaces/_components_.igooglebutton.html" class="tsd-signature-type">IGoogleButton</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">ButtonHTMLAttributes</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLButtonElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Element</span></li>
+						<li class="tsd-signature tsd-kind-icon">Google<wbr>Auth<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/80beeb1/src/components.tsx#L152">components.tsx:152</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/91ac418/src/components.tsx#L221">components.tsx:221</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>props: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="googlebutton" class="tsd-anchor"></a>
+					<h3>Google<wbr>Button</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">Google<wbr>Button<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TypeGoogleButton</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Element</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/91ac418/src/components.tsx#L169">components.tsx:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -157,11 +191,9 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>props: <a href="../interfaces/_components_.igooglebutton.html" class="tsd-signature-type">IGoogleButton</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">ButtonHTMLAttributes</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLButtonElement</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>props: <span class="tsd-signature-type">TypeGoogleButton</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>see IGoogleButton</p>
-										</div>
+										<p>see IGoogleButton</p>
 									</div>
 								</li>
 							</ul>
@@ -196,11 +228,14 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_components_.ioauthstate.html" class="tsd-kind-icon">IOAuth<wbr>State</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_components_.html#googleauth" class="tsd-kind-icon">Google<wbr>Auth</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_components_.iserverresponsestate.html" class="tsd-kind-icon">IServer<wbr>Response<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_components_.html#googleauthprovider" class="tsd-kind-icon">Google<wbr>Auth<wbr>Provider</a>
+						<a href="_components_.html#googleauthconsumer" class="tsd-kind-icon">Google<wbr>Auth<wbr>Consumer</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_components_.html#googleauth" class="tsd-kind-icon">Google<wbr>Auth</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_components_.html#googlebutton" class="tsd-kind-icon">Google<wbr>Button</a>

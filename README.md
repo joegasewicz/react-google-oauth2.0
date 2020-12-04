@@ -56,22 +56,29 @@ ReactDOM.render(
     document.getElementById("main"),
 );
 ```
-### GoogleAuth Provider
+### GoogleAuth Provider & GoogleAuthConsumer
 Get notified when a user has logged in successfully by wrapping the 
 `GoogleButton` component within the `GoogleAuth` provider. For example:
 ```typescript jsx
 import {
-    GoogleAuth
+    GoogleAuth,
+    GoogleButton,
+    GoogleAuthConsumer,
 } from "react-google-oauth2"; 
 
 <GoogleAuth>
-{({isAuthenticated}) => {
-    // isAuthenticated will get set to true when a user has successfully logged in.
-    console.log("value: ", isAuthenticated); // value: true or false
-    return <GoogleButton
-              // options...
-            />
-}}
+    <GoogleButton
+      placeholder="demo/search.png" // Optional
+      options={options}
+      apiUrl="http://localhost:5000/google_login"
+      defaultStyle={true} // Optional
+      displayErrors={true}>Sign in with google</GoogleButton>
+    <GoogleAuthConsumer>
+        {({isAuthenticated}: any) => {
+            console.log("isAuthenticated", isAuthenticated);
+            return null;
+        }}
+    </GoogleAuthConsumer>
 </GoogleAuth>
 
 ```

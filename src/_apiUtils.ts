@@ -37,9 +37,7 @@ export function serverResponse(props: any): void {
         })
         .catch(err => {
             props.setResponseState({
-                ...props.responseState,
                 error: err.message,
-                accessToken: undefined,
             })
         });
 }

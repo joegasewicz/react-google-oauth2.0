@@ -119,23 +119,30 @@ ReactDOM.render(
     &lt;/App&gt;,
     document.getElementById(<span class="hljs-string">&quot;main&quot;</span>),
 );</code></pre>
-				<a href="#googleauth-provider" id="googleauth-provider" style="color: inherit; text-decoration: none;">
-					<h3>GoogleAuth Provider</h3>
+				<a href="#googleauth-provider-amp-googleauthconsumer" id="googleauth-provider-amp-googleauthconsumer" style="color: inherit; text-decoration: none;">
+					<h3>GoogleAuth Provider &amp; GoogleAuthConsumer</h3>
 				</a>
 				<p>Get notified when a user has logged in successfully by wrapping the
 				<code>GoogleButton</code> component within the <code>GoogleAuth</code> provider. For example:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
-    GoogleAuth
+    GoogleAuth,
+    GoogleButton,
+    GoogleAuthConsumer,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>; 
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuth</span>&gt;</span>
-{({isAuthenticated}) =&gt; {
-    // isAuthenticated will get set to true when a user has successfully logged in.
-    console.log(&quot;value: &quot;, isAuthenticated); // value: true or false
-    return <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
-              // <span class="hljs-attr">options...</span>
-            /&gt;</span>
-}}
+    <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+      <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span> // <span class="hljs-attr">Optional</span>
+      <span class="hljs-attr">options</span>=<span class="hljs-string">{options}</span>
+      <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
+      <span class="hljs-attr">defaultStyle</span>=<span class="hljs-string">{true}</span> // <span class="hljs-attr">Optional</span>
+      <span class="hljs-attr">displayErrors</span>=<span class="hljs-string">{true}</span>&gt;</span>Sign in with google<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleButton</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
+        {({isAuthenticated}: any) =&gt; {
+            console.log(&quot;isAuthenticated&quot;, isAuthenticated);
+            return null;
+        }}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuth</span>&gt;</span></span>
 </code></pre>
 				<a href="#oauth20-helper-functions" id="oauth20-helper-functions" style="color: inherit; text-decoration: none;">
