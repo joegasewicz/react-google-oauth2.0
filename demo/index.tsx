@@ -38,13 +38,12 @@ function App(props: any) {
                   defaultStyle={true} // Optional
                   displayErrors={true}>Sign in with google</GoogleButton>
                 <GoogleAuthConsumer>
-                    {(test: any) => {
-                        console.log("RESULT ----> ", test);
+                    {({isAuthenticated}: any) => {
+                        console.log("isAuthenticated", isAuthenticated);
                         return null;
                     }}
                 </GoogleAuthConsumer>
             </GoogleAuth>
-
         </>
     );
 }
