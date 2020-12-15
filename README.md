@@ -70,16 +70,18 @@ import {
 } from "react-google-oauth2"; 
 
 <GoogleAuth>
-    <GoogleButton
-      placeholder="demo/search.png" // Optional
-      options={options}
-      apiUrl="http://localhost:5000/google_login"
-      defaultStyle={true} // Optional
-      displayErrors={true}>Sign in with google</GoogleButton>
     <GoogleAuthConsumer>
         {({isAuthenticated}: any) => {
-            console.log("isAuthenticated", isAuthenticated);
-            return null;
+            if (!isAuthenticated) {
+            return <GoogleButton
+                  placeholder="demo/search.png" // Optional
+                  options={options}
+                  apiUrl="http://localhost:5000/google_login"
+                  defaultStyle={true} // Optional
+                  displayErrors={true}>Sign in with google</GoogleButton>;
+            } else {
+                return <Redirect to="/home" />;
+            }
         }}
     </GoogleAuthConsumer>
 </GoogleAuth>
