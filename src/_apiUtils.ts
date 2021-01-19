@@ -84,7 +84,6 @@ export function _getAccessToken() {
  */
 export function createOAuthHeaders(): Object {
     return {
-        "Content-type": "application/jsons",
         "X-Auth-Token": `Bearer ${_getAccessToken()}`,
     }
 }
