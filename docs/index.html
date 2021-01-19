@@ -123,7 +123,10 @@ ReactDOM.render(
 					<h3>GoogleAuth Provider &amp; GoogleAuthConsumer</h3>
 				</a>
 				<p>Get notified when a user has logged in successfully by wrapping the
-				<code>GoogleButton</code> component within the <code>GoogleAuth</code> provider. For example:</p>
+					<code>GoogleButton</code> component within the <code>GoogleAuth</code> provider.
+					You can then use the <code>GoogleAuthConsumer</code> to redirect to your authorized routes
+					when <code>{isAuthenticated}</code> is true.
+				For example:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
     GoogleAuth,
     GoogleButton,
@@ -131,16 +134,18 @@ ReactDOM.render(
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>; 
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuth</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
-      <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span> // <span class="hljs-attr">Optional</span>
-      <span class="hljs-attr">options</span>=<span class="hljs-string">{options}</span>
-      <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
-      <span class="hljs-attr">defaultStyle</span>=<span class="hljs-string">{true}</span> // <span class="hljs-attr">Optional</span>
-      <span class="hljs-attr">displayErrors</span>=<span class="hljs-string">{true}</span>&gt;</span>Sign in with google<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleButton</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
         {({isAuthenticated}: any) =&gt; {
-            console.log(&quot;isAuthenticated&quot;, isAuthenticated);
-            return null;
+            if (!isAuthenticated) {
+            return <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+                  <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span> // <span class="hljs-attr">Optional</span>
+                  <span class="hljs-attr">options</span>=<span class="hljs-string">{options}</span>
+                  <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
+                  <span class="hljs-attr">defaultStyle</span>=<span class="hljs-string">{true}</span> // <span class="hljs-attr">Optional</span>
+                  <span class="hljs-attr">displayErrors</span>=<span class="hljs-string">{true}</span>&gt;</span>Sign in with google<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleButton</span>&gt;</span>;
+            } else {
+                return <span class="hljs-tag">&lt;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/home&quot;</span> /&gt;</span>;
+            }
         }}
     <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuth</span>&gt;</span></span>

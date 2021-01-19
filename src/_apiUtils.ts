@@ -74,6 +74,9 @@ export function _getAccessToken() {
 }
 
 /**
+ * @description Warning: Please make sure that as of version `0.0.23` we have removed
+ * the `application/json` content type headers from this function. This may cause an issue
+ * if you originally didn't construct your request content type headers with `application/json`.
  * @example
  * ```
  *  fetch(url, {
