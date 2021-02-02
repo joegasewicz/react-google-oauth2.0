@@ -106,7 +106,6 @@ Log out OAuth2.0 users
 logOutOAuthUser() // removes the accessToken from LocalStorage
 ```
 
-
 ### Your Rest API endpoint details
 The `GoogleButton` component will make the following request to your api:
 ```
@@ -117,3 +116,13 @@ POST options = {body: { code: <code>, email: <email>, scope: <scope> }} URL = `a
 If you are using Flask as your REST api framework then this library is designed to work
 directly with `flask-jwt-router`. See [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router)
 for more details.
+
+
+### Styling
+To Style the `<button>` element with CSS, use `google-oauth-btn` selector. For example:
+```
+.google-oauth-btn {
+    color: red;
+    background-color: lime;
+}
+```
