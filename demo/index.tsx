@@ -30,6 +30,7 @@ function App(props: any) {
                     {({isAuthenticated}: any) => {
                         console.log("isAuthenticated", isAuthenticated);
                         return <GoogleButton
+                              className="btn btn-lg"
                               placeholder="demo/search.png" // Optional
                               options={options}
                               apiUrl="http://localhost:5000/google_login"

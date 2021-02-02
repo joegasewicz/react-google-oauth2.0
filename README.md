@@ -126,3 +126,4 @@ To Style the `<button>` element with CSS, use `google-oauth-btn` selector. For e
     background-color: lime;
 }
 ```
+(you can also pass your css selectors directly with Reacts' `className` prop)
