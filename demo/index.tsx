@@ -6,21 +6,16 @@ import "./search.png";
 import {
     GoogleButton,
     IAuthorizationOptions,
-    isLoggedIn,
-    createOAuthHeaders,
-    logOutOAuthUser,
     GoogleAuth,
     GoogleAuthConsumer,
-    IGoogleButton,
 } from "../src";
-import {useState} from "react";
 
 
 function App(props: any) {
 
     const options: IAuthorizationOptions = {
         clientId: (process.env.CLIENT_ID as string),
-        redirectUri: "http://localhost:63327/react-google-Oauth2.0/dist/index.html",
+        redirectUri: "http://localhost:63342/react-google-Oauth2.0/dist/index.html",
         scopes: ["openid", "profile", "email"],
         includeGrantedScopes: true,
         accessType: "offline",
