@@ -22,6 +22,7 @@ export interface IGoogleButton {
      *      background-color: lime;
      *  }
      *  ```
+     * (you can also pass your css selectors directly with Reacts' `className` prop)
      * */
     readonly defaultStyle?: boolean;
     /** See IAuthorizationRequestParams */
@@ -144,7 +145,7 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
     }
     removeOAuthQueryParams();
     return <>
-        <button {...props} style={styles} onClick={auth.redirect} className="google-oauth-btn">{props.children}</button>
+        <button style={styles} onClick={auth.redirect} className={`${props.className} google-oauth-btn`}>{props.children}</button>
         {(displayErrors && props.error) && <div>{props.error}</div>}
     </>
 }
