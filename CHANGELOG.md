@@ -11,3 +11,4 @@
 
 
 ## Unreleased
+- mail never gets posted to the server. [Issue #20](https://github.com/joegasewicz/react-google-oauth2.0/issues/20)
