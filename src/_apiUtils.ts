@@ -1,6 +1,5 @@
 /** @internal */
 export interface IPayload {
-    readonly email: string;
     readonly code: string;
     readonly scope: string;
 }
@@ -19,8 +18,8 @@ export async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): P
 }
 /** @internal */
 export function serverResponse(props: any): void {
-    const { email = "", code, apiUrl, scope } = props;
-    const payload: IPayload = { code, email, scope };
+    const { code, apiUrl, scope } = props;
+    const payload: IPayload = { code, scope };
     postToExchangeApiUrl(apiUrl, payload)
         .then((data: IApiResponseData) => {
             // update responseState accessToken

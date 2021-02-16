@@ -5,7 +5,7 @@
 # React Google OAuth 2.0
 Easily add Google OAuth 2.0 Single Sign On to a React app & let your server handle your access & refresh tokens.
 This library will work directly with [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router) & provide
-Google OAuth 2.0 integration out of the box with minimal setup. 
+Google OAuth 2.0 integration out of the box with minimal setup.
 
 Docs: https://joegasewicz.github.io/react-google-oauth2.0/
 
@@ -57,7 +57,7 @@ ReactDOM.render(
 );
 ```
 ### GoogleAuth Provider & GoogleAuthConsumer
-Get notified when a user has logged in successfully by wrapping the 
+Get notified when a user has logged in successfully by wrapping the
 `GoogleButton` component within the `GoogleAuth` provider.
 You can then use the `GoogleAuthConsumer` to redirect to your authorized routes
 when `{isAuthenticated}` is true.
@@ -67,7 +67,7 @@ import {
     GoogleAuth,
     GoogleButton,
     GoogleAuthConsumer,
-} from "react-google-oauth2"; 
+} from "react-google-oauth2";
 
 <GoogleAuth>
     <GoogleAuthConsumer>
@@ -109,7 +109,7 @@ logOutOAuthUser() // removes the accessToken from LocalStorage
 ### Your Rest API endpoint details
 The `GoogleButton` component will make the following request to your api:
 ```
-POST options = {body: { code: <code>, email: <email>, scope: <scope> }} URL = `apiUrl`
+POST options = {body: { code: <code>, scope: <scope> }} URL = `apiUrl`
 ```
 
 ### Flask-JWT-Router
