@@ -1,6 +1,6 @@
 import { IAuthorizationOptions } from "./authorization";
-import { isLoggedIn, logOutOAuthUser, createOAuthHeaders } from "./_apiUtils";
-import {  GoogleButton, IGoogleButton, GoogleAuth, GoogleAuthConsumer} from "./components";
+import { isLoggedIn, logOutOAuthUser, createOAuthHeaders, getAccessToken } from "./apiUtils";
+import {  GoogleButton, IGoogleButton, GoogleAuth, GoogleAuthConsumer, IOAuthState } from "./components";
 
 export {
     GoogleButton,
@@ -11,4 +11,6 @@ export {
     createOAuthHeaders,
     GoogleAuth,
     GoogleAuthConsumer,
+    getAccessToken,
+    IOAuthState,
 }

@@ -2,23 +2,8 @@
 
 exports[`#GoogleButton should render a component 1`] = `
 <button
-  apiUrl="http://localhost:5000/google_login"
-  className="google-oauth-btn"
-  defaultStyle={true}
+  className="undefined google-oauth-btn"
   onClick={[Function]}
-  options={
-    Object {
-      "clientId": "<CLIENT_ID>",
-      "includeGrantedScopes": true,
-      "redirectUri": "http://localhost:3000",
-      "scopes": Array [
-        "openid",
-        "profile",
-        "email",
-      ],
-    }
-  }
-  placeholder="demo/search.png"
   style={
     Object {
       "backgroundColor": "#bdc3c7",

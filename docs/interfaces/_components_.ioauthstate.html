@@ -81,37 +81,74 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_components_.ioauthstate.html#isauthenticated" class="tsd-kind-icon">is<wbr>Authenticated</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_components_.ioauthstate.html#setoauthstate" class="tsd-kind-icon">setOAuth<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_components_.ioauthstate.html#isauthenticated" class="tsd-kind-icon">is<wbr>Authenticated</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_components_.ioauthstate.html#responsestate" class="tsd-kind-icon">response<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_components_.ioauthstate.html#setoauthstate" class="tsd-kind-icon">setOAuth<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_components_.ioauthstate.html#setresponsestate" class="tsd-kind-icon">set<wbr>Response<wbr>State</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="isauthenticated" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Authenticated</h3>
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Authenticated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/529508e/src/components.tsx#L78">components.tsx:78</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L86">components.tsx:86</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="responsestate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> response<wbr>State</h3>
+					<div class="tsd-signature tsd-kind-icon">response<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IServerResponseState</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L88">components.tsx:88</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="setoauthstate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> setOAuth<wbr>State</h3>
 					<div class="tsd-signature tsd-kind-icon">setOAuth<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/529508e/src/components.tsx#L79">components.tsx:79</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L87">components.tsx:87</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="setresponsestate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> set<wbr>Response<wbr>State</h3>
+					<div class="tsd-signature tsd-kind-icon">set<wbr>Response<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Dispatch</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SetStateAction</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IServerResponseState</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L103">components.tsx:103</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>```
+								import {
+								responseState
+							} from &quot;react-google-oauth2&quot;;</p>
+						</div>
+						<GoogleAuth>
+							{({responseState}) => {
+							// access the token from the state
+							console.log(responseState.accessToken) // <ACCESS_TOKEN>
+								}}
+						</GoogleAuth>
+						```
+					</div>
 				</section>
 			</section>
 		</div>
@@ -122,7 +159,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/__apiutils_.html">&quot;_<wbr>api<wbr>Utils&quot;</a>
+						<a href="../modules/_apiutils_.html">&quot;api<wbr>Utils&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_authorization_.html">&quot;authorization&quot;</a>
@@ -139,22 +176,25 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_components_.ioauthstate.html" class="tsd-kind-icon">IOAuth<wbr>State</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_components_.ioauthstate.html#isauthenticated" class="tsd-kind-icon">is<wbr>Authenticated</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_components_.ioauthstate.html#responsestate" class="tsd-kind-icon">response<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_components_.ioauthstate.html#setoauthstate" class="tsd-kind-icon">setOAuth<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_components_.ioauthstate.html#setresponsestate" class="tsd-kind-icon">set<wbr>Response<wbr>State</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_.iserverresponsestate.html" class="tsd-kind-icon">IServer<wbr>Response<wbr>State</a>
-					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="../modules/_components_.html#googleauthconsumer" class="tsd-kind-icon">Google<wbr>Auth<wbr>Consumer</a>
 					</li>

@@ -1,4 +1,4 @@
-import {default as React, useContext, useEffect, useState} from "react";
+import {default as React, Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {
     Authorization,
     IAuthorizationOptions,
@@ -7,8 +7,8 @@ import {
     serverResponse,
     storeAccessToken,
     isLoggedIn,
-    removeOAuthQueryParams,
-} from "./_apiUtils";
+    removeOAuthQueryParams, IServerResponseState, IServerResponseProps,
+} from "./apiUtils";
 
 /** @public */
 export interface IGoogleButton {
@@ -55,7 +55,6 @@ export interface IGoogleButton {
 type TypeButtonStyles = { [key: string]: string };
 /** @internal */
 type TypeGoogleButton = IGoogleButton & React.ButtonHTMLAttributes<HTMLButtonElement>;
-interface IServerResponseState { readonly accessToken?: string; error?: string}
 /** @internal */
 interface IServerResponse {
     readonly email?: string;
@@ -65,7 +64,7 @@ interface IServerResponse {
     readonly client_id: string;
     readonly apiUrl: string;
     responseState: IServerResponseState;
-    setResponseState: any; // TODO
+    setResponseState: Dispatch<SetStateAction<IServerResponseState>>;
 }
 /** @internal */
 const SERVER_RESPONSE_STATE = { };
@@ -83,9 +82,25 @@ const buttonStyling: TypeButtonStyles = {
     fontSize: "18px",
 };
 
-interface IOAuthState {
+export interface IOAuthState {
     isAuthenticated?: boolean;
     setOAuthState?: Function;
+    responseState?: IServerResponseState;
+    /**
+     * ```
+     *    import {
+     *       responseState
+     *   } from "react-google-oauth2";
+     *
+     *   <GoogleAuth>
+     *   {({responseState}) => {
+     *       // access the token from the state
+     *       console.log(responseState.accessToken) // <ACCESS_TOKEN>
+     *   }}
+     *   </GoogleAuth>
+     * ```
+     */
+    setResponseState?: Dispatch<SetStateAction<IServerResponseState>>;
 }
 /** @internal */
 const GoogleAuthContext = React.createContext<IOAuthState>({});
@@ -230,7 +245,7 @@ export function GoogleButton(props: TypeGoogleButton) {
 export const GoogleAuth = (props: any) => {
     const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
     const [isAuthenticated, setOAuthState] = useState<boolean>(isLoggedIn());
-    const _providerProps = {
+    const _providerProps: IOAuthState = {
         isAuthenticated,
         setOAuthState,
         responseState,

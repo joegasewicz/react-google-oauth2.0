@@ -72,7 +72,7 @@
 				</a>
 				<p>Easily add Google OAuth 2.0 Single Sign On to a React app &amp; let your server handle your access &amp; refresh tokens.
 					This library will work directly with <a href="https://github.com/joegasewicz/flask-jwt-router">Flask JWT Router</a> &amp; provide
-				Google OAuth 2.0 integration out of the box with minimal setup. </p>
+				Google OAuth 2.0 integration out of the box with minimal setup.</p>
 				<p>Docs: <a href="https://joegasewicz.github.io/react-google-oauth2.0/">https://joegasewicz.github.io/react-google-oauth2.0/</a></p>
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
@@ -131,11 +131,12 @@ ReactDOM.render(
     GoogleAuth,
     GoogleButton,
     GoogleAuthConsumer,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>; 
+    IOAuthState,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuth</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
-        {({isAuthenticated}: any) =&gt; {
+        {({responseState, isAuthenticated}: IOAuthState) =&gt; {
             if (!isAuthenticated) {
             return <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
                   <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span> // <span class="hljs-attr">Optional</span>
@@ -144,7 +145,14 @@ ReactDOM.render(
                   <span class="hljs-attr">defaultStyle</span>=<span class="hljs-string">{true}</span> // <span class="hljs-attr">Optional</span>
                   <span class="hljs-attr">displayErrors</span>=<span class="hljs-string">{true}</span>&gt;</span>Sign in with google<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleButton</span>&gt;</span>;
             } else {
-                return <span class="hljs-tag">&lt;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/home&quot;</span> /&gt;</span>;
+                if (responseState.accessToken) { // You can also use isOAuthLoggedIn()
+                    // Now send a request to your server using  createOAuthHeaders() function
+                    fetch(url, {
+                        headers: createOAuthHeaders(),
+                    })
+                    .then(data =&gt; console.log(&quot;Horay We&#x27;re logged in!&quot;))
+                    .catch(err =&gt; console.error(&quot;Just because you have a gmail account doesn&#x27;t mean you have access!&quot;))
+                }
             }
         }}
     <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
@@ -168,13 +176,21 @@ fetch(url, {
 					<h3>Your Rest API endpoint details</h3>
 				</a>
 				<p>The <code>GoogleButton</code> component will make the following request to your api:</p>
-				<pre><code>POST <span class="hljs-keyword">options</span> = {body: { code: <span class="hljs-symbol">&lt;code&gt;</span>, emai<span class="hljs-variable">l:</span> <span class="hljs-symbol">&lt;email&gt;</span>, scope: <span class="hljs-symbol">&lt;scope&gt;</span> }} URL = `apiUrl`</code></pre>
+				<pre><code>POST options = {<span class="hljs-keyword">body</span>: { code: &lt;code&gt;, <span class="hljs-keyword">scope</span>: &lt;<span class="hljs-keyword">scope</span>&gt; }} URL = <span class="hljs-string">`apiUrl`</span></code></pre>
 				<a href="#flask-jwt-router" id="flask-jwt-router" style="color: inherit; text-decoration: none;">
 					<h3>Flask-JWT-Router</h3>
 				</a>
 				<p>If you are using Flask as your REST api framework then this library is designed to work
 					directly with <code>flask-jwt-router</code>. See <a href="https://github.com/joegasewicz/flask-jwt-router">Flask JWT Router</a>
 				for more details.</p>
+				<a href="#styling" id="styling" style="color: inherit; text-decoration: none;">
+					<h3>Styling</h3>
+				</a>
+				<p>To Style the <code>&lt;button&gt;</code> element with CSS, use <code>google-oauth-btn</code> selector. For example:</p>
+				<pre><code><span class="hljs-selector-class">.google-oauth-btn</span> {
+    <span class="hljs-attribute">color</span>: red;
+    <span class="hljs-attribute">background-color</span>: lime;
+}</code></pre><p>(you can also pass your css selectors directly with Reacts&#39; <code>className</code> prop)</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -184,7 +200,7 @@ fetch(url, {
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/__apiutils_.html">&quot;_<wbr>api<wbr>Utils&quot;</a>
+						<a href="modules/_apiutils_.html">&quot;api<wbr>Utils&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_authorization_.html">&quot;authorization&quot;</a>
