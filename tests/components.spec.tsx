@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {GoogleButton, IAuthorizationOptions} from "../src";
-const googleComponents = require("../src/_apiUtils");
+const googleComponents = require("../src/apiUtils");
 import {act} from 'react-test-renderer';
 
 

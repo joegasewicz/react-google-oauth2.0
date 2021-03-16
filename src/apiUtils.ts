@@ -1,4 +1,6 @@
 /** @internal */
+import {Dispatch, SetStateAction} from "react";
+
 export interface IPayload {
     readonly code: string;
     readonly scope: string;
@@ -17,7 +19,16 @@ export async function postToExchangeApiUrl(apiUrl: string, payload: IPayload): P
     return res.json();
 }
 /** @internal */
-export function serverResponse(props: any): void {
+export interface IServerResponseState { readonly accessToken?: string; error?: string}
+/** @internal */
+export interface IServerResponseProps {
+    readonly code: string;
+    readonly scope: string;
+    readonly apiUrl: string;
+    setResponseState: Dispatch<SetStateAction<IServerResponseState>>;
+}
+/** @internal */
+export function serverResponse(props: IServerResponseProps): void {
     const { code, apiUrl, scope } = props;
     const payload: IPayload = { code, scope };
     postToExchangeApiUrl(apiUrl, payload)
@@ -25,7 +36,7 @@ export function serverResponse(props: any): void {
             // update responseState accessToken
             if(!("access_token" in data)) {
                 props.setResponseState({
-                    error: "No access_token in response data!",
+                    error: "so access_token in response data!",
                 });
             } else {
                 props.setResponseState({
@@ -68,7 +79,11 @@ export function logOutOAuthUser(): void {
     window.localStorage.removeItem("accessToken");
 }
 
-export function _getAccessToken() {
+/**
+ * @description Get the stored accessToken
+ * @return The Access Token or none
+ */
+export function getAccessToken(): string | null {
     return window.localStorage.getItem("accessToken");
 }
 
@@ -82,11 +97,38 @@ export function _getAccessToken() {
  *      headers: createOAuthHeaders(),
  *  })
  * ```
+ *
+ * If you require your server to handle authenticating multiple users across many resources
+ * (or tables) then pass in the name of the resource, for Example:
+ * @example
+ * ```
+ *  fetch(url, {
+ *      headers: createOAuthHeaders("users"),
+ *  })
+ * ```
+ *
+ *  With the resource value, the following headers are constructed:
+ *
+ *  @example
+ *  ```
+ *  {
+ *    "X-Auth-Token" : "<TOKEN>",
+ *    "X-Auth-Resource": "users",
+ *  }
+ *  ```
+ * @param resource Optional resource name to look up on the server
  * @return Objects
  */
-export function createOAuthHeaders(): Object {
+export function createOAuthHeaders(resource?: string): Object {
+    let resourceHeaders = {};
+    if(resource) {
+        resourceHeaders = {
+            "X-Auth-Resource": resource,
+        }
+    }
     return {
-        "X-Auth-Token": `Bearer ${_getAccessToken()}`,
+        ...resourceHeaders,
+        "X-Auth-Token": `Bearer ${getAccessToken()}`,
     }
 }
 

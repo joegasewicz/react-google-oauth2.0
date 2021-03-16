@@ -67,11 +67,12 @@ import {
     GoogleAuth,
     GoogleButton,
     GoogleAuthConsumer,
+    IOAuthState,
 } from "react-google-oauth2";
 
 <GoogleAuth>
     <GoogleAuthConsumer>
-        {({isAuthenticated}: any) => {
+        {({responseState, isAuthenticated}: IOAuthState) => {
             if (!isAuthenticated) {
             return <GoogleButton
                   placeholder="demo/search.png" // Optional
@@ -80,7 +81,14 @@ import {
                   defaultStyle={true} // Optional
                   displayErrors={true}>Sign in with google</GoogleButton>;
             } else {
-                return <Redirect to="/home" />;
+                if (responseState.accessToken) { // You can also use isOAuthLoggedIn()
+                    // Now send a request to your server using  createOAuthHeaders() function
+                    fetch(url, {
+                        headers: createOAuthHeaders(),
+                    })
+                    .then(data => console.log("Horay We're logged in!"))
+                    .catch(err => console.error("Just because you have a gmail account doesn't mean you have access!"))
+                }
             }
         }}
     </GoogleAuthConsumer>
