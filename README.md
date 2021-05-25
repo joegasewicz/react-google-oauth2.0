@@ -120,6 +120,15 @@ The `GoogleButton` component will make the following request to your api:
 POST options = {body: { code: <code>, scope: <scope> }} URL = `apiUrl`
 ```
 
+### Update prompts
+If for example your user updates their email in your app & you redirect them
+to the login again, Google will by default skip the Google email select screen
+& log you in with your existing credentials. To stop this happening you can use the following function:
+
+```typescript
+
+```
+
 ### Flask-JWT-Router
 If you are using Flask as your REST api framework then this library is designed to work
 directly with `flask-jwt-router`. See [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router)

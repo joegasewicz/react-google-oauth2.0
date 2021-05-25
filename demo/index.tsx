@@ -17,7 +17,7 @@ import {
 function App(props: any) {
 
     const _options: IAuthorizationOptions = {
-        clientId: "604043290993-85df2hov5ce3b3jr90m384ma94g4i5qo.apps.googleusercontent.com",
+        clientId: (process.env.CLIENT_ID as string),
         redirectUri: "http://localhost:3000",
         scopes: ["openid", "profile", "email"],
         accessType: "offline",
