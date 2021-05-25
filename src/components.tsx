@@ -256,7 +256,9 @@ export function GoogleButton(props: TypeGoogleButton) {
             setResponseState: setResponseState as Dispatch<SetStateAction<IServerResponseState>>,
         };
         removeOAuthQueryParams();
-        setServerResponseState(serverResponseProps);
+        if (responseState && !Object.keys(responseState).length) {
+            setServerResponseState(serverResponseProps);
+        }
         console.debug("Waiting for remote api response");
         return callback ? callback() : <>Loading...</>;
     } else if (queryParamsError) {
