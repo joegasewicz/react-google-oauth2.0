@@ -1,5 +1,5 @@
 /** @internal */
-import {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction, useEffect} from "react";
 
 export interface IPayload {
     readonly code: string;
@@ -25,6 +25,7 @@ export interface IServerResponseProps {
     readonly code: string;
     readonly scope: string;
     readonly apiUrl: string;
+    responseState: IServerResponseState;
     setResponseState: Dispatch<SetStateAction<IServerResponseState>>;
 }
 /** @internal */
@@ -119,7 +120,7 @@ export function getAccessToken(): string | null {
  * @param resource Optional resource name to look up on the server
  * @return Objects
  */
-export function createOAuthHeaders(resource?: string): Object {
+export function createOAuthHeaders(resource?: string): { [k: string]: string } {
     let resourceHeaders = {};
     if(resource) {
         resourceHeaders = {
