@@ -84,8 +84,11 @@ const buttonStyling: TypeButtonStyles = {
 
 export interface IOAuthState {
     isAuthenticated?: boolean;
-    setOAuthState?: Function;
+    setOAuthState: Function;
     responseState?: IServerResponseState;
+    options?: IAuthorizationOptions;
+    setOptions: Function;
+    selectAccountPrompt: Function;
     /**
      * ```
      *    import {
@@ -100,10 +103,17 @@ export interface IOAuthState {
      *   </GoogleAuth>
      * ```
      */
-    setResponseState?: Dispatch<SetStateAction<IServerResponseState>>;
+    setResponseState: Dispatch<SetStateAction<IServerResponseState>>;
 }
 /** @internal */
-const GoogleAuthContext = React.createContext<IOAuthState>({});
+const DEFAULT_GOOGLE_AUTH_CONTEXT = {
+    setOAuthState: () => {},
+    setOptions: () => {},
+    selectAccountPrompt: () => {},
+    setResponseState: () => {},
+};
+/** @internal */
+const GoogleAuthContext = React.createContext<IOAuthState>(DEFAULT_GOOGLE_AUTH_CONTEXT);
 /** @internal */
 export const GoogleAuthProvider = GoogleAuthContext.Provider;
 /**
@@ -152,6 +162,7 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
     const auth = new Authorization(options, scopes);
     auth.createAuthorizationRequestURL();
 
+
     const styles = defaultStyle ? _getBackgroundImg(placeholder, buttonStyling) : undefined;
     if(props.error) {
         console.error(`[React-Google-OAuth2] Error: ${props.error}
@@ -192,28 +203,44 @@ export const InnerButton = (props: IInnerButtonProps & React.ButtonHTMLAttribute
  */
 export function GoogleButton(props: TypeGoogleButton) {
     const {callback} = props;
-    const oauthContext = useContext<IOAuthState>(GoogleAuthContext);
+    const { options, setOptions, responseState, setOAuthState, setResponseState, isAuthenticated } = useContext<IOAuthState>(GoogleAuthContext);
+    const [serverResponseState, setServerResponseState] = useState<IServerResponse>();
     const currentUrl = new URLSearchParams(window.location.search);
     const queryParamsCode = currentUrl.get("code");
     const queryParamsError = currentUrl.get("error");
+    useEffect(() => {
+        if (!options && setOptions) {
+            setOptions(props.options);
+        }
+    }, [props.options]);
+    useEffect(() => {
+        if(responseState && !Object.keys(responseState).length && serverResponseState) {
+            serverResponse(serverResponseState);
+        }
+    }, [serverResponseState, responseState]);
+    useEffect(() => {
+        if(responseState?.accessToken && !isLoggedIn()) {
+            storeAccessToken(responseState.accessToken as string);
+            console.debug("`accessToken` set in local storage.");
+            if (typeof setOAuthState === "function" && !isAuthenticated) {
+                setOAuthState(true);
+            }
+        }
+    }, [responseState?.accessToken]);
+    // Add any updates to the options state
+    let mergedPropsAndStateOptions = {
+        ...props.options,
+        ...options,
+    }
     let _inner =
         <InnerButton
             {...props}
             placeholder={props.placeholder}
-            error={(oauthContext as any).responseState?.error}
-            options={props.options}
+            error={responseState?.error}
+            options={mergedPropsAndStateOptions}
         />;
-    if ((oauthContext as any).responseState?.accessToken && !isLoggedIn()) {
-        storeAccessToken((oauthContext as any).responseState.accessToken);
-        console.debug("`accessToken` set in local storage.");
-        if(typeof (oauthContext as any).setOAuthState === "function") {
-            useEffect(() => {
-                (oauthContext as any).setOAuthState(true);
-            });
-        }
-        return null;
-    } else if ((oauthContext as any).responseState?.error) {
-        console.error(`[React-Google-OAuth2] Error: Api call failed with ${(oauthContext as any).responseState?.error} error.`);
+    if (responseState?.error) {
+        console.error(`[React-Google-OAuth2] Error: Api call failed with ${responseState?.error} error.`);
         return _inner;
     } else if (queryParamsCode && !isLoggedIn()) {
         // Get rest of params
@@ -225,13 +252,11 @@ export function GoogleButton(props: TypeGoogleButton) {
             code: queryParamsCode,
             client_id: props.options.clientId,
             apiUrl: props.apiUrl,
-            responseState: (oauthContext as any).responseState,
-            setResponseState: (oauthContext as any).setResponseState,
+            responseState: responseState as IServerResponseState,
+            setResponseState: setResponseState as Dispatch<SetStateAction<IServerResponseState>>,
         };
         removeOAuthQueryParams();
-        useEffect(() => {
-            serverResponse(serverResponseProps);
-        }, []);
+        setServerResponseState(serverResponseProps);
         console.debug("Waiting for remote api response");
         return callback ? callback() : <>Loading...</>;
     } else if (queryParamsError) {
@@ -241,15 +266,30 @@ export function GoogleButton(props: TypeGoogleButton) {
     // Display button with no errors
     return _inner;
 }
+function selectAccountPrompt(setOptions: Function, options?: IAuthorizationOptions) {
+    return () => {
+        if (options && options.prompt !== "select_account") {
+            setOptions({
+                ...options,
+                prompt: "select_account",
+            } as IAuthorizationOptions);
+        }
+    };
+}
 
 export const GoogleAuth = (props: any) => {
     const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
     const [isAuthenticated, setOAuthState] = useState<boolean>(isLoggedIn());
+    const [options, setOptions] = useState<IAuthorizationOptions>();
+
     const _providerProps: IOAuthState = {
         isAuthenticated,
         setOAuthState,
         responseState,
         setResponseState,
+        options,
+        setOptions,
+        selectAccountPrompt: selectAccountPrompt(setOptions, options),
     };
     return  (
         <GoogleAuthProvider value={_providerProps}>

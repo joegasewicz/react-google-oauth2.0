@@ -41,7 +41,7 @@ module.exports =  {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "React Base Forms Showcase",
+            title: "React Google OAuth2.0 Demo",
             filename: "index.html",
             template: "./demo/index.html"
         }),

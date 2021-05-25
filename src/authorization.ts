@@ -27,14 +27,16 @@ interface IAuthorizationBase {
      * will be available within the new access token.
      * */
     includeGrantedScopes?: boolean;
-    /** Not required, optional. For prefilling email fields etc. */
+    /** Not required, optional. For prefilling email fields */
     loginHint?: string;
     /**
      * Not required, optional. A space-delimited, case-sensitive list of prompts to
      * present the user. If you don't specify this parameter, the user will be prompted
-     * only the first time your project requests access.
+     * only the first time your project requests access. Valid values:
+     *  consent - Prompt the user for consent.
+     *  select_account - Prompt the user to select an account.
      * */
-    prompt?: string;
+    prompt?: "consent" | "select_account";
 }
 /** @public */
 export interface IAuthorizationOptions extends IAuthorizationBase {
@@ -82,6 +84,8 @@ export class Authorization implements IAuthorization {
             state = null,
             redirectUri,
             clientId,
+            loginHint,
+            prompt,
         } = this.params;
         const domain = GoogleAPIConnectionStrings.GOOGLE_OAUTH_ENDPOINT;
         let url: string;
@@ -90,6 +94,8 @@ export class Authorization implements IAuthorization {
         url = `${url}include_granted_scopes=${includeGrantedScopes}&`;
         url = `${url}response_type=${responseType}&`;
         url = state ? `${url}state=${state}&` : url;
+        url = loginHint ? `${url}login_hint=${loginHint}&` : url;
+        url = prompt ? `${url}prompt=${prompt}&` : url;
         url = `${url}redirect_uri=${redirectUri}&`;
         url = `${url}client_id=${clientId}`;
         this.googleRedirectURL = url;
