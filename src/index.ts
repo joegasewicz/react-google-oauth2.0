@@ -1,6 +1,6 @@
-import { IAuthorizationOptions } from "./authorization";
+import { IAuthorizationOptions, TypePrompt } from "./authorization";
 import { isLoggedIn, logOutOAuthUser, createOAuthHeaders, getAccessToken } from "./apiUtils";
-import {  GoogleButton, IGoogleButton, GoogleAuth, GoogleAuthConsumer, IOAuthState } from "./components";
+import {  GoogleButton, IGoogleButton, GoogleAuth, GoogleAuthConsumer, IOAuthState,  setPrompt} from "./components";
 
 export {
     GoogleButton,
@@ -13,4 +13,6 @@ export {
     GoogleAuthConsumer,
     getAccessToken,
     IOAuthState,
+    TypePrompt,
+    setPrompt,
 }

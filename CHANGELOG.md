@@ -16,5 +16,9 @@
 
 - Remove application/json Content Type from `createOAuthHeaders()` headers. [Issue #14](https://github.com/joegasewicz/react-google-oauth2.0/issues/14)
 
+## Pre Release
+**Releases 0.0.28-rc.0**
+- Disconnect auto login #27. [Issue #27](https://github.com/joegasewicz/react-google-oauth2.0/issues/27)
+
 
 ## Unreleased
