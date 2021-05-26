@@ -9,7 +9,6 @@ import {
     GoogleAuth,
     GoogleAuthConsumer,
     IOAuthState,
-    createOAuthHeaders,
 } from "../src";
 
 
@@ -29,9 +28,9 @@ function App(props: any) {
         <>
             <GoogleAuth>
                 <GoogleAuthConsumer>
-                    {({responseState, isAuthenticated, selectAccountPrompt, options}: IOAuthState) => {
+                    {({responseState, isAuthenticated, setPrompt, options}: IOAuthState) => {
                         if (!isAuthenticated) {
-                            selectAccountPrompt();
+                            setPrompt();
                             return <GoogleButton
                                 placeholder="demo/search.png" // Optional
                                 options={_options}

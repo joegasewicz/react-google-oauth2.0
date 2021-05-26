@@ -3,6 +3,8 @@ export enum GoogleAPIConnectionStrings {
     GOOGLE_OAUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth",
 }
 /** @public */
+export type TypePrompt = "consent" | "select_account";
+/** @public */
 interface IAuthorizationBase {
     /** This is your client ID */
     clientId: string;
@@ -36,7 +38,7 @@ interface IAuthorizationBase {
      *  consent - Prompt the user for consent.
      *  select_account - Prompt the user to select an account.
      * */
-    prompt?: "consent" | "select_account";
+    prompt?: TypePrompt;
 }
 /** @public */
 export interface IAuthorizationOptions extends IAuthorizationBase {

@@ -1,7 +1,7 @@
 import {default as React, Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {
     Authorization,
-    IAuthorizationOptions,
+    IAuthorizationOptions, TypePrompt,
 } from "./authorization";
 import {
     serverResponse,
@@ -88,7 +88,7 @@ export interface IOAuthState {
     responseState?: IServerResponseState;
     options?: IAuthorizationOptions;
     setOptions: Function;
-    selectAccountPrompt: Function;
+    setPrompt: Function;
     /**
      * ```
      *    import {
@@ -109,7 +109,7 @@ export interface IOAuthState {
 const DEFAULT_GOOGLE_AUTH_CONTEXT = {
     setOAuthState: () => {},
     setOptions: () => {},
-    selectAccountPrompt: () => {},
+    setPrompt: () => {},
     setResponseState: () => {},
 };
 /** @internal */
@@ -268,17 +268,29 @@ export function GoogleButton(props: TypeGoogleButton) {
     // Display button with no errors
     return _inner;
 }
-function selectAccountPrompt(setOptions: Function, options?: IAuthorizationOptions) {
-    return () => {
-        if (options && options.prompt !== "select_account") {
+
+/**
+ *
+ * @param setOptions
+ * @param options
+ * @internal TODO make public when bugs are fixed
+ */
+export function setPrompt(setOptions: Function, options?: IAuthorizationOptions) {
+    return (promptType: TypePrompt) => {
+        if (options && !options.prompt) {
             setOptions({
                 ...options,
-                prompt: "select_account",
+                prompt: promptType,
             } as IAuthorizationOptions);
         }
     };
 }
 
+/**
+ *
+ * @param props
+ * @constructor
+ */
 export const GoogleAuth = (props: any) => {
     const [responseState, setResponseState] = useState<IServerResponseState>(SERVER_RESPONSE_STATE);
     const [isAuthenticated, setOAuthState] = useState<boolean>(isLoggedIn());
@@ -291,7 +303,7 @@ export const GoogleAuth = (props: any) => {
         setResponseState,
         options,
         setOptions,
-        selectAccountPrompt: selectAccountPrompt(setOptions, options),
+        setPrompt: setPrompt(setOptions, options),
     };
     return  (
         <GoogleAuthProvider value={_providerProps}>
