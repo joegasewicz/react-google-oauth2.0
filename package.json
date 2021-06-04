@@ -1,6 +1,6 @@
 {
   "name": "react-google-oauth2",
-  "version": "0.0.28-rc.1",
+  "version": "0.0.28-rc.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",

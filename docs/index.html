@@ -177,6 +177,56 @@ fetch(url, {
 				</a>
 				<p>The <code>GoogleButton</code> component will make the following request to your api:</p>
 				<pre><code>POST options = {<span class="hljs-keyword">body</span>: { code: &lt;code&gt;, <span class="hljs-keyword">scope</span>: &lt;<span class="hljs-keyword">scope</span>&gt; }} URL = <span class="hljs-string">`apiUrl`</span></code></pre>
+				<a href="#update-prompts" id="update-prompts" style="color: inherit; text-decoration: none;">
+					<h3>Update prompts</h3>
+				</a>
+				<p>If for example your user updates their email in your app &amp; you redirect them
+					to the login again, Google will by default skip the Google email select screen
+				&amp; log you in with your existing credentials. To stop this happening you can use the following function:</p>
+				<pre><code class="language-typescript">setPrompt(<span class="hljs-string">&quot;select_account&quot;</span>);</code></pre>
+				<p>Below is an example with <code>setPrompt</code> function resetting your </p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> sso_options: IAuthorizationOptions = {
+    <span class="hljs-attr">clientId</span>: <span class="hljs-string">&quot;&lt;CLIENT_ID&gt;&quot;</span>,
+    <span class="hljs-attr">redirectUri</span>: <span class="hljs-string">`http://localhost:3000/login`</span>,
+    <span class="hljs-attr">scopes</span>: [<span class="hljs-string">&quot;openid&quot;</span>, <span class="hljs-string">&quot;profile&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>],
+    <span class="hljs-attr">accessType</span>: <span class="hljs-string">&quot;offline&quot;</span>,
+};</code></pre>
+				<p>Then in your login component it could look like this:</p>
+				<pre><code class="language-typescript">&lt;GoogleAuth&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span>
+        {({ responseState, isAuthenticated, setPrompt }: IOAuthState) =&gt; {
+                if (!isAuthenticated) {
+                    // Here we are using Lodash fp to get our prompt value
+                    // passed from the React Router location API e.g:
+                    // history.push({ pathname: &quot;/login&quot;, { prompt: &quot;select_account&quot; });
+                    const prompt = fp.get(&quot;state.prompt&quot;, location);
+                    if (prompt) {
+                        // this will now set sso_option.prompt = &quot;select_account&quot;
+                        // for this login attempt, then the auto login flow will
+                        // continue as normal
+                        setPrompt(prompt);
+                    }
+                    return <span class="hljs-tag">&lt;<span class="hljs-name">StyledGoogleButton</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+                            <span class="hljs-attr">defaultStyle</span>=<span class="hljs-string">{false}</span>
+                            <span class="hljs-attr">options</span>=<span class="hljs-string">{sso_option}</span>
+                            <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:3000/users/login&quot;</span>
+                        &gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">GoogleButton</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">StyledGoogleButton</span>&gt;</span>;
+                } else {
+                    if (responseState?.accessToken &amp;&amp; isOAuthLoggedIn()) {
+                        updateShouldFetch(isOAuthLoggedIn());
+                        if (staff) {
+                           return <span class="hljs-tag">&lt;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/staff&quot;</span>/&gt;</span>;
+                        } else {
+                            return null;
+                        }
+                    }
+                    return null;
+                }
+        }}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span></span>
+&lt;/GoogleAuth&gt;</code></pre>
 				<a href="#flask-jwt-router" id="flask-jwt-router" style="color: inherit; text-decoration: none;">
 					<h3>Flask-JWT-Router</h3>
 				</a>
@@ -224,6 +274,7 @@ fetch(url, {
 			<ul class="tsd-legend">
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
