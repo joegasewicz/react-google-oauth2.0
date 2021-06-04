@@ -1,6 +1,12 @@
 # Changelog
 
 ### Changed
+**Releases 0.1.0**
+- Disconnect auto login #27. [Issue #27](https://github.com/joegasewicz/react-google-oauth2.0/issues/27)
+- Docs for setPrompt + README.md. [Issue #33](https://github.com/joegasewicz/react-google-oauth2.0/issues/33)
+
+**Releases 0.0.28**
+  
 **Releases 0.0.26**
 - mail never gets posted to the server. [Issue #20](https://github.com/joegasewicz/react-google-oauth2.0/issues/20)
 - Make get Access token function public. [Issue #23](https://github.com/joegasewicz/react-google-oauth2.0/issues/23)
@@ -17,9 +23,6 @@
 - Remove application/json Content Type from `createOAuthHeaders()` headers. [Issue #14](https://github.com/joegasewicz/react-google-oauth2.0/issues/14)
 
 ## Pre Release
-**Releases 0.0.28-rc.2**
-- Disconnect auto login #27. [Issue #27](https://github.com/joegasewicz/react-google-oauth2.0/issues/27)
-- Docs for setPrompt + README.md. [Issue #33](https://github.com/joegasewicz/react-google-oauth2.0/issues/33)
 
 
 ## Unreleased
