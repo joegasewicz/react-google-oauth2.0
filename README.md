@@ -126,7 +126,55 @@ to the login again, Google will by default skip the Google email select screen
 & log you in with your existing credentials. To stop this happening you can use the following function:
 
 ```typescript
+setPrompt("select_account");
+```
 
+Below is an example with `setPrompt` function resetting your 
+```typescript
+const sso_options: IAuthorizationOptions = {
+    clientId: "<CLIENT_ID>",
+    redirectUri: `http://localhost:3000/login`,
+    scopes: ["openid", "profile", "email"],
+    accessType: "offline",
+};
+```
+Then in your login component it could look like this:
+```typescript
+<GoogleAuth>
+    <GoogleAuthConsumer>
+        {({ responseState, isAuthenticated, setPrompt }: IOAuthState) => {
+                if (!isAuthenticated) {
+                    // Here we are using Lodash fp to get our prompt value
+                    // passed from the React Router location API e.g:
+                    // history.push({ pathname: "/login", { prompt: "select_account" });
+                    const prompt = fp.get("state.prompt", location);
+                    if (prompt) {
+                        // this will now set sso_option.prompt = "select_account"
+                        // for this login attempt, then the auto login flow will
+                        // continue as normal
+                        setPrompt(prompt);
+                    }
+                    return <StyledGoogleButton>
+                        <GoogleButton
+                            defaultStyle={false}
+                            options={sso_option}
+                            apiUrl="http://localhost:3000/users/login"
+                        >Login</GoogleButton>
+                    </StyledGoogleButton>;
+                } else {
+                    if (responseState?.accessToken && isOAuthLoggedIn()) {
+                        updateShouldFetch(isOAuthLoggedIn());
+                        if (staff) {
+                           return <Redirect to="/staff"/>;
+                        } else {
+                            return null;
+                        }
+                    }
+                    return null;
+                }
+        }}
+    </GoogleAuthConsumer>
+</GoogleAuth>
 ```
 
 ### Flask-JWT-Router

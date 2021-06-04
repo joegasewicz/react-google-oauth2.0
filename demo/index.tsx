@@ -21,7 +21,7 @@ function App(props: any) {
         scopes: ["openid", "profile", "email"],
         accessType: "offline",
         // loginHint: "joegasewicz@gmail.com",
-        // prompt: "select_account"
+        prompt: "select_account"
     };
 
     return (
@@ -30,7 +30,7 @@ function App(props: any) {
                 <GoogleAuthConsumer>
                     {({responseState, isAuthenticated, setPrompt, options}: IOAuthState) => {
                         if (!isAuthenticated) {
-                            setPrompt();
+                            setPrompt("select_account");
                             return <GoogleButton
                                 placeholder="demo/search.png" // Optional
                                 options={_options}
