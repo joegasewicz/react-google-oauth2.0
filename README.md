@@ -1,3 +1,4 @@
+[![Node.js Package](https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/main.yml/badge.svg)](https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/main.yml)
 [![GitHub license](https://img.shields.io/github/license/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/joegasewicz/react-google-oauth2.0)](https://github.com/joegasewicz/react-google-oauth2.0/issues)
 ![npm](https://img.shields.io/npm/v/react-google-oauth2)
