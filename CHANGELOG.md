@@ -1,7 +1,10 @@
 # Changelog
 
 ### Changed
-**Releases 0.1.0**
+**Releases 0.1.1**
+- Fixes 0.1.0 release
+
+**Releases 0.1.0** (Warning: released failed due to bug in github action)
 - Disconnect auto login #27. [Issue #27](https://github.com/joegasewicz/react-google-oauth2.0/issues/27)
 - Docs for setPrompt + README.md. [Issue #33](https://github.com/joegasewicz/react-google-oauth2.0/issues/33)
 
