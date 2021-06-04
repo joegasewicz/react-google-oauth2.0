@@ -2,6 +2,9 @@
 
 ### Changed
 **Releases 0.0.26**
+- Docs for setPrompt + README.md. [Issue #33](https://github.com/joegasewicz/react-google-oauth2.0/issues/33)
+
+**Releases 0.0.26**
 - mail never gets posted to the server. [Issue #20](https://github.com/joegasewicz/react-google-oauth2.0/issues/20)
 - Make get Access token function public. [Issue #23](https://github.com/joegasewicz/react-google-oauth2.0/issues/23)
 - Add custom request headers for dynamic resources [Issue #22](https://github.com/joegasewicz/react-google-oauth2.0/issues/22)
