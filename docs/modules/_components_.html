@@ -88,6 +88,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_components_.html#googleauth" class="tsd-kind-icon">Google<wbr>Auth</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_components_.html#googlebutton" class="tsd-kind-icon">Google<wbr>Button</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_components_.html#setprompt" class="tsd-kind-icon">set<wbr>Prompt</a></li>
 							</ul>
 						</section>
 					</div>
@@ -101,7 +102,7 @@
 					<div class="tsd-signature tsd-kind-icon">Google<wbr>Auth<wbr>Consumer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ExoticComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConsumerProps</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_components_.ioauthstate.html" class="tsd-signature-type">IOAuthState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = GoogleAuthContext.Consumer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L129">components.tsx:129</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/components.tsx#L139">components.tsx:139</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -138,9 +139,11 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L245">components.tsx:245</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/components.tsx#L348">components.tsx:348</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -155,13 +158,13 @@
 					<a name="googlebutton" class="tsd-anchor"></a>
 					<h3>Google<wbr>Button</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Google<wbr>Button<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TypeGoogleButton</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Element</span></li>
+						<li class="tsd-signature tsd-kind-icon">Google<wbr>Button<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TypeGoogleButton</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/fbb0785/src/components.tsx#L193">components.tsx:193</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/components.tsx#L204">components.tsx:204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,20 +174,19 @@
 										<p>First create an options object that implements an <a href="../interfaces/_authorization_.iauthorizationoptions.html">IAuthorizationOptions</a> type.
 											Check the <a href="../interfaces/_authorization_.iauthorizationoptions.html">IAuthorizationOptions</a> and <a href="../interfaces/_authorization_.iauthorizationbase.html">IAuthorizationBase</a> types for
 										all required properties. Then, pass the options to the <a href="_components_.html#googlebutton">GoogleButton</a> component.</p>
-										<pre><code class="language-IAuthorizationOptions"> const options:  = {
-     clientId: (process.env.CLIENT_ID as string),
-      redirectUri: &quot;http://localhost:3000&quot;,
-      scopes: [&quot;openid&quot;, &quot;profile&quot;, &quot;email&quot;],
-      includeGrantedScopes: true,
-      accessType: &quot;offline&quot;,
+										<pre><code> <span class="hljs-keyword">const</span> options:  = {
+     <span class="hljs-attr">clientId</span>: (process.env.CLIENT_ID <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+      <span class="hljs-attr">redirectUri</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,
+      <span class="hljs-attr">scopes</span>: [<span class="hljs-string">&quot;openid&quot;</span>, <span class="hljs-string">&quot;profile&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>],
+      <span class="hljs-attr">includeGrantedScopes</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">accessType</span>: <span class="hljs-string">&quot;offline&quot;</span>,
   };
 
-  &lt;GoogleButton
-        placeholder=&quot;demo/search.png&quot;
-        options={options}
-        apiUrl=&quot;http://localhost:5000/google_login&quot;
-  /&gt;</code></pre>
-									</dd>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">GoogleButton</span>
+        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;demo/search.png&quot;</span>
+        <span class="hljs-attr">options</span>=<span class="hljs-string">{options}</span>
+        <span class="hljs-attr">apiUrl</span>=<span class="hljs-string">&quot;http://localhost:5000/google_login&quot;</span>
+  /&gt;</span></span></code></pre></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -196,7 +198,82 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Element</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="setprompt" class="tsd-anchor"></a>
+					<h3>set<wbr>Prompt</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Prompt<span class="tsd-signature-symbol">(</span>setOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_authorization_.iauthorizationoptions.html" class="tsd-signature-type">IAuthorizationOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/components.tsx#L332">components.tsx:332</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>setOptions: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_authorization_.iauthorizationoptions.html" class="tsd-signature-type">IAuthorizationOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>If for example your user updates their email in your app &amp; you redirect them
+											to the login again, Google will by default skip the Google email select screen
+										&amp; log you in with your existing credentials. To stop this happening you can use the following function:</p>
+										<pre><code> setPrompt(<span class="hljs-string">&quot;select_account&quot;</span>)<span class="hljs-comment">;</span></code></pre><p>Below is an example with <code>setPrompt</code> function resetting your</p>
+										<pre><code>  const sso_options: IAuthorizationOptions = {
+<span class="hljs-symbol">     clientId:</span> <span class="hljs-string">&quot;&lt;CLIENT_ID&gt;&quot;</span>,
+<span class="hljs-symbol">     redirectUri:</span> `http:<span class="hljs-comment">//localhost:3000/login`,</span>
+<span class="hljs-symbol">     scopes:</span> [<span class="hljs-string">&quot;openid&quot;</span>, <span class="hljs-string">&quot;profile&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>],
+<span class="hljs-symbol">     accessType:</span> <span class="hljs-string">&quot;offline&quot;</span>,
+  };</code></pre><p>Then in your login component, it could look like this:</p>
+										<pre><code>  &lt;GoogleAuth&gt;
+  &lt;GoogleAuthConsumer&gt;
+  {({ responseState, isAuthenticated, setPrompt }: IOAuthState) =&gt; {
+    <span class="hljs-keyword">if</span> (!isAuthenticated) {
+        <span class="hljs-comment">// Here we are using Lodash fp to get our prompt value</span>
+        <span class="hljs-comment">// passed from the React Router location API e.g:</span>
+        <span class="hljs-comment">// history.push({ pathname: &quot;/login&quot;, {prompt: &quot;select_account&quot;});</span>
+        <span class="hljs-keyword">const</span> prompt = fp.<span class="hljs-keyword">get</span>(<span class="hljs-string">&quot;state.prompt&quot;</span>, location);
+        <span class="hljs-keyword">if</span> (prompt) {
+           <span class="hljs-comment">// this will now set sso_option.prompt = &quot;select_account&quot;</span>
+           <span class="hljs-comment">// for this login attempt, then the auto login flow will</span>
+          <span class="hljs-comment">// continue as normal</span>
+            setPrompt(prompt);
+        }
+        <span class="hljs-keyword">return</span> &lt;StyledGoogleButton&gt;
+                &lt;GoogleButton
+                    defaultStyle={<span class="hljs-literal">false</span>}
+                    options={sso_option}
+                    apiUrl=<span class="hljs-string">&quot;http://localhost:3000/users/login&quot;</span>
+                &gt;Login&lt;/GoogleButton&gt;
+            &lt;/StyledGoogleButton&gt;;
+       } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (responseState?.accessToken &amp;&amp; isOAuthLoggedIn()) {
+                updateShouldFetch(isOAuthLoggedIn());
+                <span class="hljs-keyword">if</span> (staff) {
+                   <span class="hljs-keyword">return</span> &lt;Redirect to=<span class="hljs-string">&quot;/staff&quot;</span>/&gt;;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+                }
+            }
+           <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+         }}
+     &lt;/GoogleAuthConsumer&gt;
+  &lt;/GoogleAuth&gt;</code></pre>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -236,6 +313,9 @@
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_components_.html#googlebutton" class="tsd-kind-icon">Google<wbr>Button</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_components_.html#setprompt" class="tsd-kind-icon">set<wbr>Prompt</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -248,6 +328,7 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
