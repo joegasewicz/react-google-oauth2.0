@@ -1,6 +1,9 @@
 # Changelog
 
 ### Changed
+**Releases 0.1.2**
+- Exchange refresh token for access token #39. [Issue #39](https://github.com/joegasewicz/react-google-oauth2.0/issues/39)
+
 **Releases 0.1.1**
 - Fixes 0.1.0 release
 
