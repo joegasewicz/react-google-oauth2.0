@@ -77,15 +77,35 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_apiutils_.html#google_oauth2_exchange_token_url" class="tsd-kind-icon">GOOGLE_<wbr>OAUTH2_<wbr>EXCHANGE_<wbr>TOKEN_<wbr>URL</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_apiutils_.html#createoauthheaders" class="tsd-kind-icon">createOAuth<wbr>Headers</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_apiutils_.html#exchangetoken" class="tsd-kind-icon">exchange<wbr>Token</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_apiutils_.html#getaccesstoken" class="tsd-kind-icon">get<wbr>Access<wbr>Token</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_apiutils_.html#isloggedin" class="tsd-kind-icon">is<wbr>Logged<wbr>In</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_apiutils_.html#logoutoauthuser" class="tsd-kind-icon">log<wbr>OutOAuth<wbr>User</a></li>
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="google_oauth2_exchange_token_url" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> GOOGLE_<wbr>OAUTH2_<wbr>EXCHANGE_<wbr>TOKEN_<wbr>URL</h3>
+					<div class="tsd-signature tsd-kind-icon">GOOGLE_<wbr>OAUTH2_<wbr>EXCHANGE_<wbr>TOKEN_<wbr>URL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"https://oauth2.googleapis.com/token"</span><span class="tsd-signature-symbol"> = &quot;https://oauth2.googleapis.com/token&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L9">apiUtils.ts:9</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -100,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/apiUtils.ts#L123">apiUtils.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L126">apiUtils.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -148,6 +168,73 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="exchangetoken" class="tsd-anchor"></a>
+					<h3>exchange<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">exchange<wbr>Token<span class="tsd-signature-symbol">(</span>clientId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, refreshToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clientSecret<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L181">apiUtils.ts:181</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>description</dt>
+									<dd></dd>
+									<dt>example</dt>
+									<dd><pre><code> exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+ .then(<span class="hljs-function"><span class="hljs-params">accessToken</span> =&gt;</span> {
+      console.log(accessToken) <span class="hljs-comment">// your access token...</span>
+  });</code></pre><p>If you require an access token to run your e2e tests then <code>exchangeToken</code> will set and return a new access token.</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code>    Cypress.Commands.add(<span class="hljs-string">&quot;loginSSO&quot;</span>,  <span class="hljs-function">(<span class="hljs-params">overrides = {}</span>) =&gt;</span> {
+      Cypress.log({
+          <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;loginSSO&quot;</span>,
+      });
+      <span class="hljs-keyword">if</span>(!getAccessToken()) {
+          exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+          .then(<span class="hljs-function"><span class="hljs-params">accessToken</span> =&gt;</span> {
+              cy.request({
+                  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
+                  <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">${API_URL}</span>/staff`</span>,
+                  <span class="hljs-attr">headers</span>: createOAuthHeaders(),
+              });
+          });
+      }
+  });</code></pre></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>clientId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Google OAuth Client ID</p>
+									</div>
+								</li>
+								<li>
+									<h5>refreshToken: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Refresh Token (Use Google Oauth Playground to generate a refresh token)
+										<a href="https://developers.google.com/oauthplayground/">https://developers.google.com/oauthplayground/</a></p>
+									</div>
+								</li>
+								<li>
+									<h5>clientSecret: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Google Api&#39;s Client Secret</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getaccesstoken" class="tsd-anchor"></a>
 					<h3>get<wbr>Access<wbr>Token</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -157,7 +244,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/apiUtils.ts#L87">apiUtils.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L90">apiUtils.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -182,7 +269,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/apiUtils.ts#L68">apiUtils.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L71">apiUtils.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -207,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/51faf70/src/apiUtils.ts#L79">apiUtils.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L82">apiUtils.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -245,8 +332,14 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_apiutils_.ipayload.html" class="tsd-kind-icon">IPayload</a>
 					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="_apiutils_.html#google_oauth2_exchange_token_url" class="tsd-kind-icon">GOOGLE_<wbr>OAUTH2_<wbr>EXCHANGE_<wbr>TOKEN_<wbr>URL</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_apiutils_.html#createoauthheaders" class="tsd-kind-icon">createOAuth<wbr>Headers</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_apiutils_.html#exchangetoken" class="tsd-kind-icon">exchange<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_apiutils_.html#getaccesstoken" class="tsd-kind-icon">get<wbr>Access<wbr>Token</a>

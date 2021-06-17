@@ -173,9 +173,10 @@ export function removeOAuthQueryParams(): void {
  *       }
  *   });
  * ```
- * @param clientId
- * @param refreshToken
- * @param clientSecret
+ * @param clientId Google OAuth Client ID
+ * @param refreshToken Refresh Token (Use Google Oauth Playground to generate a refresh token)
+ * See: https://developers.google.com/oauthplayground/
+ * @param clientSecret Google Api's Client Secret
  */
 export function exchangeToken(clientId: string, refreshToken: string, clientSecret: string) {
     let url = `${GOOGLE_OAUTH2_EXCHANGE_TOKEN_URL}?`;

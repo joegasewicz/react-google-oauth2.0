@@ -209,7 +209,7 @@ describe("test something...",  () => {
                     cy.request({
                         method: 'GET',
                         url: `${API_URL}/staff`,
-                        headers: createOAuthHeaders(), // Adds token to Authorization headers
+                        headers: createOAuthHeaders(),
                     });
                 });
         }
