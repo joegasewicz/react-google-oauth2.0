@@ -103,7 +103,7 @@
 					<div class="tsd-signature tsd-kind-icon">GOOGLE_<wbr>OAUTH2_<wbr>EXCHANGE_<wbr>TOKEN_<wbr>URL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"https://oauth2.googleapis.com/token"</span><span class="tsd-signature-symbol"> = &quot;https://oauth2.googleapis.com/token&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L9">apiUtils.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L9">apiUtils.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -120,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L126">apiUtils.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L126">apiUtils.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,19 +171,21 @@
 					<a name="exchangetoken" class="tsd-anchor"></a>
 					<h3>exchange<wbr>Token</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">exchange<wbr>Token<span class="tsd-signature-symbol">(</span>clientId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, refreshToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clientSecret<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">exchange<wbr>Token<span class="tsd-signature-symbol">(</span>clientId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, refreshToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clientSecret<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L181">apiUtils.ts:181</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L184">apiUtils.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>description</dt>
-									<dd></dd>
+									<dd><p>Function to exchange a refresh token for an access token &amp; sets the access
+										token into local storage..</p>
+									</dd>
 									<dt>example</dt>
 									<dd><pre><code> exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
  .then(<span class="hljs-function"><span class="hljs-params">accessToken</span> =&gt;</span> {
@@ -220,7 +222,7 @@
 									<h5>refreshToken: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Refresh Token (Use Google Oauth Playground to generate a refresh token)
-										<a href="https://developers.google.com/oauthplayground/">https://developers.google.com/oauthplayground/</a></p>
+										See: <a href="https://developers.google.com/oauthplayground/">https://developers.google.com/oauthplayground/</a></p>
 									</div>
 								</li>
 								<li>
@@ -230,7 +232,8 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise<String> The string is the new access token also set in local storage</p>
 						</li>
 					</ul>
 				</section>
@@ -244,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L90">apiUtils.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L90">apiUtils.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -269,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L71">apiUtils.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L71">apiUtils.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -294,7 +297,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/8aa3c65/src/apiUtils.ts#L82">apiUtils.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/6672ebd/src/apiUtils.ts#L82">apiUtils.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

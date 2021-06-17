@@ -147,6 +147,8 @@ export function removeOAuthQueryParams(): void {
 
 /**
  * @description
+ * Function to exchange a refresh token for an access token & sets the access
+ * token into local storage..
  * @example
  * ```
  *  exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
@@ -177,8 +179,9 @@ export function removeOAuthQueryParams(): void {
  * @param refreshToken Refresh Token (Use Google Oauth Playground to generate a refresh token)
  * See: https://developers.google.com/oauthplayground/
  * @param clientSecret Google Api's Client Secret
+ * @return Promise<String> The string is the new access token also set in local storage
  */
-export function exchangeToken(clientId: string, refreshToken: string, clientSecret: string) {
+export function exchangeToken(clientId: string, refreshToken: string, clientSecret: string): Promise<String> {
     let url = `${GOOGLE_OAUTH2_EXCHANGE_TOKEN_URL}?`;
     url += `client_id=${clientId}`;
     url += `&grant_type=refresh_token`;
