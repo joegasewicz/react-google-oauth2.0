@@ -179,6 +179,48 @@ Then in your login component it could look like this:
 </GoogleAuth>
 ```
 
+### Access tokens for e2e tests
+To test your React app with an e2e testing framework such as [cypressIO](https://www.cypress.io/)
+you can use the `exchangeToken` function.
+
+The `exchangeToken` function fetches the new access token and sets it into local storage and also
+returns the access token.
+
+Example to fetch and set an access token in local storage
+ ```typescript
+  exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+  .then(accessToken => {
+       console.log(accessToken) // your access token...
+   });
+ ```
+ If you require an access token to run your e2e tests then `exchangeToken` will set and return a new access token.
+ ```typescript
+import { exchangeToken,getAccessToken, createOAuthHeaders } from "react-google-oauth2";
+
+describe("test something...",  () => {
+    Cypress.Commands.add("loginSSO",  (overrides = {}) => {
+        Cypress.log({
+            "name": "loginSSO",
+        });
+        // Fetche an access token before each tests only if there isn't one present
+        if(!getAccessToken()) { 
+            exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+                .then(accessToken => {
+                    cy.request({
+                        method: 'GET',
+                        url: `${API_URL}/staff`,
+                        headers: createOAuthHeaders(),
+                    });
+                });
+        }
+    });
+    beforeEach(() => {
+        cy.loginSSO(); 
+    });
+});
+
+ ```
+
 ### Flask-JWT-Router
 If you are using Flask as your REST api framework then this library is designed to work
 directly with `flask-jwt-router`. See [Flask JWT Router](https://github.com/joegasewicz/flask-jwt-router)

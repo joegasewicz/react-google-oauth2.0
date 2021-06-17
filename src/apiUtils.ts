@@ -5,6 +5,9 @@ export interface IPayload {
     readonly code: string;
     readonly scope: string;
 }
+
+export const GOOGLE_OAUTH2_EXCHANGE_TOKEN_URL = "https://oauth2.googleapis.com/token";
+
 /** @internal */
 export interface IApiResponseData { readonly access_token: string; }
 /** @internal */
@@ -140,4 +143,63 @@ export function removeOAuthQueryParams(): void {
         const clean_uri = currentLocation.substring(0, currentLocation.indexOf("?"));
         window.history.replaceState({}, document.title, clean_uri);
     }
+}
+
+/**
+ * @description
+ * Function to exchange a refresh token for an access token & sets the access
+ * token into local storage..
+ * @example
+ * ```
+ *  exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+ *  .then(accessToken => {
+ *       console.log(accessToken) // your access token...
+ *   });
+ * ```
+ * If you require an access token to run your e2e tests then `exchangeToken` will set and return a new access token.
+ * @example
+ * ```
+ *     Cypress.Commands.add("loginSSO",  (overrides = {}) => {
+ *       Cypress.log({
+ *           "name": "loginSSO",
+ *       });
+ *       if(!getAccessToken()) {
+ *           exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+ *           .then(accessToken => {
+ *               cy.request({
+ *                   method: 'GET',
+ *                   url: `${API_URL}/staff`,
+ *                   headers: createOAuthHeaders(),
+ *               });
+ *           });
+ *       }
+ *   });
+ * ```
+ * @param clientId Google OAuth Client ID
+ * @param refreshToken Refresh Token (Use Google Oauth Playground to generate a refresh token)
+ * See: https://developers.google.com/oauthplayground/
+ * @param clientSecret Google Api's Client Secret
+ * @return Promise<String> The string is the new access token also set in local storage
+ */
+export function exchangeToken(clientId: string, refreshToken: string, clientSecret: string): Promise<String> {
+    let url = `${GOOGLE_OAUTH2_EXCHANGE_TOKEN_URL}?`;
+    url += `client_id=${clientId}`;
+    url += `&grant_type=refresh_token`;
+    url += `&refresh_token=${refreshToken}`;
+    url += `&client_secret=${clientSecret}`;
+    return fetch(url, { method: "POST", })
+        .then(data => {
+            return data.json().then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                } else {
+                    window.localStorage.setItem("accessToken", data.access_token);
+                    return data.access_token;
+                }
+            });
+        })
+        .catch(err => {
+            console.debug(err)
+            throw new Error("Failed to refresh access token");
+        });
 }

@@ -64,7 +64,9 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p><a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/main/LICENSE"><img src="https://img.shields.io/github/license/joegasewicz/react-google-oauth2.0" alt="GitHub license"></a>
+				<p><a href="https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/test.yml"><img src="https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/test.yml/badge.svg" alt="Build &amp; Test"></a>
+					<a href="https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/main.yml"><img src="https://github.com/joegasewicz/react-google-oauth2.0/actions/workflows/main.yml/badge.svg" alt="Node.js Package"></a>
+					<a href="https://github.com/joegasewicz/react-google-oauth2.0/blob/main/LICENSE"><img src="https://img.shields.io/github/license/joegasewicz/react-google-oauth2.0" alt="GitHub license"></a>
 					<a href="https://github.com/joegasewicz/react-google-oauth2.0/issues"><img src="https://img.shields.io/github/issues/joegasewicz/react-google-oauth2.0" alt="GitHub issues"></a>
 				<img src="https://img.shields.io/npm/v/react-google-oauth2" alt="npm"></p>
 				<a href="#react-google-oauth-20" id="react-google-oauth-20" style="color: inherit; text-decoration: none;">
@@ -227,6 +229,43 @@ fetch(url, {
         }}
     <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleAuthConsumer</span>&gt;</span></span>
 &lt;/GoogleAuth&gt;</code></pre>
+				<a href="#access-tokens-for-e2e-tests" id="access-tokens-for-e2e-tests" style="color: inherit; text-decoration: none;">
+					<h3>Access tokens for e2e tests</h3>
+				</a>
+				<p>To test your React app with an e2e testing framework such as <a href="https://www.cypress.io/">cypressIO</a>
+				you can use the <code>exchangeToken</code> function.</p>
+				<p>The <code>exchangeToken</code> function fetches the new access token and sets it into local storage and also
+				returns the access token.</p>
+				<p>Example to fetch and set an access token in local storage</p>
+				<pre><code class="language-typescript">  exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+  .then(<span class="hljs-function"><span class="hljs-params">accessToken</span> =&gt;</span> {
+       <span class="hljs-built_in">console</span>.log(accessToken) <span class="hljs-comment">// your access token...</span>
+   });</code></pre>
+				<p> If you require an access token to run your e2e tests then <code>exchangeToken</code> will set and return a new access token.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { exchangeToken,getAccessToken, createOAuthHeaders } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-google-oauth2&quot;</span>;
+
+describe(<span class="hljs-string">&quot;test something...&quot;</span>,  <span class="hljs-function">() =&gt;</span> {
+    Cypress.Commands.add(<span class="hljs-string">&quot;loginSSO&quot;</span>,  <span class="hljs-function">(<span class="hljs-params">overrides = {}</span>) =&gt;</span> {
+        Cypress.log({
+            <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;loginSSO&quot;</span>,
+        });
+        <span class="hljs-comment">// Fetche an access token before each tests only if there isn&#x27;t one present</span>
+        <span class="hljs-keyword">if</span>(!getAccessToken()) { 
+            exchangeToken(CLIENT_ID, REFRESH_TOKEN, CLIENT_SECRET)
+                .then(<span class="hljs-function"><span class="hljs-params">accessToken</span> =&gt;</span> {
+                    cy.request({
+                        <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
+                        <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">${API_URL}</span>/staff`</span>,
+                        <span class="hljs-attr">headers</span>: createOAuthHeaders(),
+                    });
+                });
+        }
+    });
+    beforeEach(<span class="hljs-function">() =&gt;</span> {
+        cy.loginSSO(); 
+    });
+});
+</code></pre>
 				<a href="#flask-jwt-router" id="flask-jwt-router" style="color: inherit; text-decoration: none;">
 					<h3>Flask-JWT-Router</h3>
 				</a>
