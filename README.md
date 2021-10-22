@@ -83,7 +83,7 @@ import {
                   defaultStyle={true} // Optional
                   displayErrors={true}>Sign in with google</GoogleButton>;
             } else {
-                if (responseState.accessToken) { // You can also use isOAuthLoggedIn()
+                if (responseState.accessToken) { // You can also use isLoggedIn()
                     // Now send a request to your server using  createOAuthHeaders() function
                     fetch(url, {
                         headers: createOAuthHeaders(),
