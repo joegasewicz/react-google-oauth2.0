@@ -32,3 +32,4 @@
 
 
 ## Unreleased
+- react-google-oauth2 is Incompatibility with react 17. [Issue #44](https://github.com/joegasewicz/react-google-oauth2.0/issues/44)
