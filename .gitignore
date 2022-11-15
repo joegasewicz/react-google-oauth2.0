@@ -1,3 +1,5 @@
+.vscode
+examples/jsx-app/node_modules
 lib/
 .idea/
 # Logs
