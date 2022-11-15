@@ -14,7 +14,7 @@ Docs: https://joegasewicz.github.io/react-google-oauth2.0/
 ## Install
 ```bash
 npm install react-google-oauth2
-// For React > 17 use
+// For React 17 or above use
 npm install react-google-oauth2 --force 
 ```
 
